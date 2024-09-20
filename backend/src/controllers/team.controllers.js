@@ -9,7 +9,10 @@ const createTeam = asyncHandler(async (req, res, next) => {
   const { teamName, teamMembers } = req.body;
   const currentUser = req.user;
 
-  if (!teamName || !teamMembers) {
+  
+
+  
+  if (!teamName ) {
     return res.send(new apiError(400, "Please provide team name"));
   }
 
@@ -58,14 +61,12 @@ const createTeam = asyncHandler(async (req, res, next) => {
 
 const deleteTeam = asyncHandler(async (req, res) => {
   const { teamId } = req.body;
-  console.log(teamId);
+
   const team = await Team.findOne({ teamId });
-  console.log(team);
+
 
   if (team.teamAdmins != req.user._id) {
-    console.log(team.teamAdmins);
-    console.log(req.user._id);
-
+   
     return res.send(
       new apiError(400, "You are not authorized to delete this team")
     );
@@ -77,6 +78,8 @@ const deleteTeam = asyncHandler(async (req, res) => {
     new apiResponse(200, "Team deleted successfully", deleteTeam)
   );
 });
+
+
 
 const joinTeam = asyncHandler(async (req, res) => {
   const { teamId } = req.body;

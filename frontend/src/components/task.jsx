@@ -1,48 +1,59 @@
-import React, { useContext, useEffect, useState } from 'react';
-import NavBar from './navbar';
-import axios from 'axios';
-import { Navigate } from 'react-router-dom';
-import { AuthContext } from '../App';
-import Cookies from 'js-cookie';
+import * as React from "react"
 
-const TaskManager = () => {
-  const { isAuth, setIsAuth } = useContext(AuthContext);
-  const [Isloading, setIsLoading] = useState(true);
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 
-
-  console.log('from task vie2w', isAuth);
-  
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:4000/api/v1/user/getme')
-      .then((res) => {
-        console.log('from task view', res.data);
-
-
-``
-        setIsAuth(true);
-      })
-      .catch((err) => {
-        console.error(err);
-        setIsAuth(false);
-      });
-
-    setIsLoading(false);
-  }, [setIsAuth]);
-
-  if (Isloading) {
-    return <div className="">Loading...</div>;
-  }
-  if (!isAuth) {
-    return <Navigate to="/login" />;
-  }
-
+export function CardWithForm() {
   return (
-    <>
-      <NavBar  />
-    </>
-  );
-};
+    <Card className="w-[240px]">
+      <CardHeader>
+        <CardTitle>todo heading</CardTitle>
+        <CardDescription>descriptionb</CardDescription>
+      </CardHeader>
+      <CardContent>
+   
+          <div className="grid w-full items-center gap-4">
+       
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="framework">Status</Label>
+              <Select>
+                <SelectTrigger id="framework">
+                  <SelectValue placeholder="Select" />
+                </SelectTrigger>
+                <SelectContent position="popper">
+                  <SelectItem value="next">Next.js</SelectItem>
+                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
+                  <SelectItem value="astro">Astro</SelectItem>
+                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
+                </SelectContent>
+                <Label>Due Date</Label>
+                
+                
+              </Select>
+            </div>
+          </div>
 
-export default TaskManager;
+      </CardContent>
+      <CardFooter className="flex justify-between">
+        <Button variant="outline">Cancel</Button>
+        <Button>Assign to</Button>
+      </CardFooter>
+    </Card>
+  )
+}

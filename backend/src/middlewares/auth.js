@@ -6,6 +6,8 @@ const authHandler = async (req, res, next) => {
     const authorization = req.headers['authorization'];
     const token = (authorization && authorization.split(' ')[1]) || req.cookies.token;
 
+
+    
     
     if (!token) {
       return next(Error);
@@ -15,7 +17,7 @@ const authHandler = async (req, res, next) => {
         const decodedToken= jwt.verify(token, process.env.JWT_SECRET);
         
         req.user = decodedToken;
-        
+      
       
          next();
         

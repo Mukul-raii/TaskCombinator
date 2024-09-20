@@ -2,15 +2,15 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, Navigate, NavigationType } from 'react-router-dom';
 
 import './App.css';
-import SignUp from './components/signUp';
-import Login from './components/login';
+import SignUp from '../pages/signUp';
+import Login from '../pages/login';
 
-import Home from './components/Home';
-import TaskManager from './components/task';
+import Home from '../pages/Home';
+import TaskManager from '../pages/task';
 import Cookies from 'js-cookie';
 import { set } from 'mongoose';
 import Profile from './components/Profile';
-
+import { AuthProvider,AuthContext } from '../context/AuthContext';
 /* 
 const PrivateRouter=({element,isAuth})=>{
   console.log(isAuth);
@@ -18,25 +18,29 @@ const PrivateRouter=({element,isAuth})=>{
   return isAuth? element : <Navigate to="/signup"/>
 }
 */
-const AuthContext = createContext();
+
+1
+
 
 function App() {
-  const [isAuth, setIsAuth] = useState(false);
 
  
   return (
-    <AuthContext.Provider value={{ isAuth, setIsAuth }}>
-      <Router>
+    <AuthProvider>
+   <div className="App">
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/taskview" element={isAuth ? <TaskManager />: <Navigate to={'/login'}/> } />
-          {/* <Route path="/taskview" element={<TaskManager />}/> */}
+         {/*  <Route path="/taskview" element={isAuth ? <TaskManager />: <Navigate to={'/login'}/> } /> */}
+          <Route path="/taskview" element={<TaskManager />}/> 
         </Routes>
-      </Router>
-    </AuthContext.Provider>
+  
+  </div>
+    
+    </AuthProvider>
   );
 }
 
