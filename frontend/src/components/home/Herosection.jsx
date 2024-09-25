@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from '../button';
+import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 
 const Herosection = () => {
   return (
     <>
-      <div className="flex justify-between items-center flex-row bg-gray-900 text-white ">
+      <div className="flex justify-between items-center flex-row bg-gray-900 text-white  ">
         <div className="p-16 m-2  w-full  flex justify-evenly items-center flex-col h-auto ">
           <h1 className="text-6xl font-bold p-3">Effortlessly Create Teams and Assign Tasks</h1>
           <p className="text-md text-gray-300 px-3">
@@ -84,7 +84,7 @@ const Herosection = () => {
           </div>
           <div className="w-full p-3 ">
             <Button className="text-2xl my-5 border p-2 bg-yellow-50 px-4 mt-8  rounded   text-black font-medium hover:bg-black hover:text-white ">
-              <Link to={'/signup'}>Get Started</Link>
+              <Link to={'/signin'}>Get Started</Link>
             </Button>
           </div>
         </div>
@@ -98,6 +98,9 @@ const Herosection = () => {
           />
         </div>
       </div>
+
+      
+      
     </>
   );
 };

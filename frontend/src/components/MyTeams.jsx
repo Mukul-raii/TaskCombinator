@@ -13,7 +13,7 @@ const MyTeams = ({ getTeams }) => {
         });
         
         const teams = response.data.message.myteams;
-        console.log(teams);
+  
         setTeams(teams);
       } catch (error) {
         console.error('Error fetching teams:', error);
@@ -29,10 +29,10 @@ const MyTeams = ({ getTeams }) => {
   };
 
   return (
-    <div>
-      <div className="flex flex-col text-white text-xl">
+    
+      <div className="flex flex-col text-white text-xl p-3">
         {teams.map((team, index) => (
-          <div className="hover:text-white hover:cursor-pointer" key={index}>
+          <div className="hover:text-white hover:cursor-pointer p-2" key={index}>
             <a
               onClick={() => {
                 sendTeam(team.teamId);
@@ -42,7 +42,7 @@ const MyTeams = ({ getTeams }) => {
           </div>
         ))}
       </div>
-    </div>
+    
   );
 };
 

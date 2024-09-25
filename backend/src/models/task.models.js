@@ -18,5 +18,5 @@ const taskSchema= new mongoose.Schema({
 
 
 },{timestamps:true})
-
+2
 export const Task= mongoose.model('Task', taskSchema)

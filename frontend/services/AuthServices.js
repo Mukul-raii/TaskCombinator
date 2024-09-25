@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { getAuth } from 'firebase/auth';
 const apiUrl = 'http://localhost:4000/api/v1';
 
 const setAuthToken = (token) => {
@@ -13,7 +14,7 @@ const setAuthToken = (token) => {
 const login = async (user) => {
   try {
     const res = await axios.post(`${apiUrl}/user/login`, user,{withCredentials:true});
-    console.log("login response");
+    console.log("login response",res);
     if (res.data.statusCode==200) {
       return { success: true, user: res.data };
     } else {
@@ -52,5 +53,27 @@ const logout =async(token)=>{
 
 }
 
+const signinWithGOogle=async (userData,idToken) => {
+  try {
+    const payload = {
+      idToken, // Include the idToken
+      ...userData // Include the rest of the user data
+    };
 
-export { login, signin, setAuthToken ,logout};
+    const res = await axios.post(`${apiUrl}/user/googleLogin`, payload ,{withCredentials:true});
+
+    if (res.data.statusCode==200) {
+      return { success: true, user: res.data };
+    } else {
+      return { success: false, Error: res.data.message };
+    }
+
+  } catch (error) {
+    console.error('Error while Logging ', error);
+  } 
+
+  
+}
+
+
+export { login, signin, setAuthToken ,logout,signinWithGOogle};

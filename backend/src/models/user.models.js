@@ -3,9 +3,9 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const userSchema= new mongoose.Schema({
-    userName: {type: String, required: true,toLowerCase: true},
+    userName: {type: String, toLowerCase: true},
     email: {type: String, required: true, unique: true,toLowerCase: true},
-    password: {type: String, required: true},
+    password: {type: String},
     teamId:{type: String},
     teams:[{type: mongoose.Schema.Types.ObjectId, ref: "Team"}]
    
@@ -26,12 +26,21 @@ userSchema.methods.IsPasswordCorrect = async function (enteredPassword) {
 
 
 userSchema.methods.generateToken = async function () {
-    return  jwt.sign(
-        {
-            _id: this._id,
-            userName: this.userName,
-            email: this.email
-        },process.env.JWT_SECRET,{
+    const payload = {};
+    
+ 
+    if (this._id) {
+        payload._id = this._id;
+    }
+    if (this.userName) {
+        payload.userName = this.userName;
+    }
+    if (this.email) {
+        payload.email = this.email;
+    }
+console.log("payload ",payload);
+
+    return jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1d'
         }
     )
