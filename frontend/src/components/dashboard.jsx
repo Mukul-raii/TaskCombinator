@@ -13,7 +13,7 @@ const{state}=useContext(AuthContext)
         const getUserTasks=async () => {
             
             const response = await axios.get('http://localhost:4000/api/v1/task/UserTasks',{withCredentials:true})
-            console.log(response.data);
+      
             setUserTask(response.data.message.tasks)
             
         }
@@ -21,10 +21,14 @@ const{state}=useContext(AuthContext)
       },[])
 
 
+
   return (
-    <div className='flex flex-wrap flex-row p-10 max-w-full  gap-5'>
-        {userTask.map((task,index)=>(<DashboardCards key={index} user={state} task={task} /> ))}
-    </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {userTask
+        .filter((task)=>task.taskStatus!=="Completed")
+        .map((task,index)=>(<DashboardCards key={index} user={state} task={task} /> ))}
+
+   </div>
   )
 }
 

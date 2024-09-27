@@ -20,7 +20,10 @@ const CreateNewTask = ({selectTeam }) => {
           withCredentials: true,
           params: { teamId: selectTeam }
         });
-        setTeamMember(response.data.message.TeamDetailed);
+       
+        console.log("teamdeta",response.data.message.teamMembers);
+        
+        setTeamMember(response.data.message.teamMembers);
       setIsLoading(false)
       } catch (error) {
         console.error(error);
@@ -45,7 +48,8 @@ const CreateNewTask = ({selectTeam }) => {
         },
         { withCredentials: true }
       );
-      console.log(response.data);
+     console.log(response.data);
+     
       toast.success('Task created successfully');
     } catch (error) {
       toast.error('Error creating task');
@@ -142,9 +146,9 @@ const CreateNewTask = ({selectTeam }) => {
                focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             required>
            <option value="">Select a team member</option>
-            {Object.entries(teamMember).map(([id, member]) => (
-              <option key={id} value={id}>
-                {member.name}
+            {teamMember && Object.entries(teamMember).map(([id, member]) => (
+              <option key={id} value={member._id}>
+                {member.userName}
               </option>
             ))}
             

@@ -5,7 +5,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { Team } from "../models/team.models.js";
 import { User } from "../models/user.models.js";
 import {Task} from '../models/task.models.js'
-
+import { ObjectId } from "mongodb";
 const createTeam = asyncHandler(async (req, res, next) => {
     const { teamName, teamMembers } = req.body;
     const currentUser = req.user;
@@ -71,7 +71,9 @@ const deleteTeam = asyncHandler(async (req, res) => {
 const joinTeam = asyncHandler(async (req, res) => {
     const { teamName } = req.body;
     const team = await Team.findOne({ teamName:teamName });
+    console.log(team);
     team.teamMembers.push(req.user._id);
+    
     await team.save();
     const user = await User.findById(req.user._id);
     user.teams.push(team._id);
@@ -80,76 +82,113 @@ const joinTeam = asyncHandler(async (req, res) => {
     return res.send(new apiResponse(200, "Team joined successfully", team));
 });
 
+
+
+
 const getTeam = asyncHandler(async (req, res) => {
-    const { teamId, assignTo } = req.query;
+    const { teamId } = req.query;
+
+    if (!teamId) {
+        return res.status(400).json(new ApiError(400, "TeamId is required"));
+    }
 
     try {
-        const pipeline = await Team.aggregate([
-            // Match the specific team by teamId
-            {
-                $match: {
-                    teamId: teamId,
-                },
-            },
-            // Lookup tasks associated with the team
+        const pipeline = [
+            { $match: { teamId: teamId } },
             {
                 $lookup: {
-                    from: "tasks", // MongoDB collection for tasks
-                    localField: "teamId", // teamId in Team schema
-                    foreignField: "teamId", // teamId in Task schema
-                    as: "teamTasks", // Output array of tasks
-                },
+                    from: "tasks",
+                    localField: "teamId",
+                    foreignField: "teamId",
+                    as: "teamTasks"
+                }
             },
-            // Unwind tasks to work with individual task objects
-            {
-                $unwind: {
-                    path: "$teamTasks",
-                    preserveNullAndEmptyArrays: true, // Optional: retain teams without tasks
-                },
-            },
-            // Lookup user information for each task
+            { $unwind: { path: "$teamTasks", preserveNullAndEmptyArrays: true } },
             {
                 $lookup: {
-                    from: "users", // MongoDB collection for users
-                    localField: "teamTasks.assignTo", // AssignTo field in Task schema
-                    foreignField: "_id", // _id in User schema (ObjectId reference)
-                    as: "assignedUser", // Output array with user details
-                },
+                    from: "users",
+                    localField: "teamTasks.assignTo",
+                    foreignField: "_id",
+                    as: "assignedUser"
+                }
             },
-            // Unwind the user array (assuming each task is assigned to one user)
+            { $unwind: { path: "$assignedUser", preserveNullAndEmptyArrays: true } },
             {
-                $unwind: {
-                    path: "$assignedUser",
-                    preserveNullAndEmptyArrays: true, // Optional: retain tasks without users
-                },
+                $group: {
+                    _id: "$_id",
+                    teamName: { $first: "$teamName" },
+                    teamId: { $first: "$teamId" },
+                    teamMembers: { $first: "$teamMembers" },
+                    teamAdmins: { $first: "$teamAdmins" },
+                    tasks: {
+                        $push: {
+                            $cond: [
+                                { $ifNull: ["$teamTasks", false] },
+                                {
+                                    _id: "$teamTasks._id",
+                                    taskName: "$teamTasks.taskName",
+                                    taskDescription: "$teamTasks.taskDescription",
+                                    taskDueDate: "$teamTasks.taskDueDate",
+                                    taskPriority: "$teamTasks.taskPriority",
+                                    taskStatus: "$teamTasks.taskStatus",
+                                    assignedTo: {
+                                        userId: "$assignedUser._id",
+                                        userName: "$assignedUser.userName",
+                                        email: "$assignedUser.email"
+                                    }
+                                },
+                                "$$REMOVE"
+                            ]
+                        }
+                    }
+                }
             },
-            // Optional projection to select only required fields
+            {
+                $lookup: {
+                    from: "users",
+                    let: { memberIds: "$teamMembers" },
+                    pipeline: [
+                        {
+                            $match: {
+                                $expr: {
+                                    $in: [{ $toString: "$_id" }, "$$memberIds"]
+                                }
+                            }
+                        },
+                        {
+                            $project: {
+                                _id: 1,
+                                userName: 1,
+                                email: 1
+                            }
+                        }
+                    ],
+                    as: "teamMembersDetails"
+                }
+            },
             {
                 $project: {
+                    _id: 1,
                     teamName: 1,
-                    "teamTasks.taskName": 1,
-                    "teamTasks.taskDescription": 1,
-                    "teamTasks.taskDueDate": 1,
-                    "teamTasks.taskPriority": 1,
-                    "assignedUser.userName": 1, // Show the assigned user name
-                    "assignedUser.email": 1,
-                    "teamTasks.taskStatus":1,
-                    "teamTasks.assignTo":1
-                    // Show the assigned user email
-                },
-            },
-        ]);
+                    teamId: 1,
+                    tasks: 1,
+                    teamMembers: "$teamMembersDetails",
+                    teamAdmins: 1
+                }
+            }
+        ];
 
-        // Check if the pipeline returns results
-        if (!pipeline || pipeline.length === 0) {
-            return res.send(new apiResponse(404, "No tasks found for the team", {}));
+        const result = await Team.aggregate(pipeline);
+
+        if (!result || result.length === 0) {
+            return res.status(404).json(new apiResponse(404, "No team found with the given teamId", null));
         }
+console.log(result[0]);
 
-        // Return the result of the aggregation
-        return res.send(new apiResponse(200, "Team tasks retrieved successfully", pipeline));
+        return res.status(200).json(new apiResponse(200, "Team data retrieved successfully", result[0]));
     } catch (error) {
-        console.error("Error in aggregation:", error);
-        return res.send(new apiError(400, "Pipeline Error"));
+        console.error("Error in getTeam:", error);
+        return res.status(500).json(new apiError(500, "Internal server error"));
     }
 });
 

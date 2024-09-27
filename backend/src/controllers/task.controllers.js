@@ -5,6 +5,8 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { Team } from "../models/team.models.js";
 import { Task } from "../models/task.models.js";
 import { User } from "../models/user.models.js";
+import mongoose from "mongoose";
+import {ObjectId,MongoClient}from 'mongodb'
 
 const createTask = asyncHandler(async (req, res, next) => {
   const {
@@ -67,7 +69,7 @@ const deleteTask = asyncHandler(async (req, res) => {
   const { taskId } = req.body;
   const currentUser = req.user;
 
-  const task = await Task.findOne({ _id: taskId });
+  const task = await Task.findById(taskId);
   const team = await Team.findOne({ teamId: task.teamId });
   if (currentUser._id != team.teamAdmins._id) {
     return res.send(new apiError(400, "Only team admins can delete tasks"));
@@ -78,32 +80,35 @@ const deleteTask = asyncHandler(async (req, res) => {
 });
 
 const updateTask = asyncHandler(async (req, res) => {
-  const { taskStatus, taskId, teamId } = req.body;
+  const { taskStatus, taskID, teamId ,} = req.body;
 
   const currentUser = req.user;
 
-  if (!taskStatus || !taskId) {
+  
+
+  if (!taskStatus || !taskID) {
     return res.send(new apiError(400, "Please provide task Id"));
   }
 
-  const task = await Task.findOne({ _id: taskId });
+    const task = await Task.findOne({_id:taskID});
+     
   const team = await Team.findOne({ teamId: teamId });
-  console.log(task);
 
+  console.log(task,team);
+  
   const isAssigne = currentUser._id == task.assignTo.toString();
+console.log("assing",isAssigne);
+
 
   if (!isAssigne) {
     return res.send(new apiError(400, "Only task assignee can update tasks"));
   }
-    
-  if (!isAssigne) {
-    return res.send(new apiError(400, "Only task assignee can update tasks"));
-  }
+  
 
 
   try {
     const taskDetails = await Task.findByIdAndUpdate(
-      taskId, 
+      taskID, 
       { taskStatus },
       { new: true }  // Return the updated task
     );
@@ -192,11 +197,11 @@ const getUserTasks = asyncHandler(async (req, res) => {
         },
     },
 ]);
-console.log(pipeline);
+
 
   
   return res.send(
-    new apiResponse(200, "Tasks retrieved successfully", { tasks })
+    new apiResponse(200, "Tasks retrieved successfully", { tasks,pipeline })
   );
 });
 

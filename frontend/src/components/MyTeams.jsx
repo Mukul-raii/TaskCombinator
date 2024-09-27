@@ -30,10 +30,10 @@ const MyTeams = ({ getTeams }) => {
 
   return (
     
-      <div className="flex flex-col text-white text-xl p-3">
+      <div className="flex flex-col text-xl text-black bg-blue-50 p-3">
         {teams.map((team, index) => (
-          <div className="hover:text-white hover:cursor-pointer p-2" key={index}>
-            <a
+          <div className=" hover:cursor-pointer p-2" key={index}>
+            <a 
               onClick={() => {
                 sendTeam(team.teamId);
               }}>

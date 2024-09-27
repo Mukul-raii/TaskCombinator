@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { getAuth } from 'firebase/auth';
-const apiUrl = 'http://localhost:4000/api/v1';
+
+import { dotenv } from 'dotenv';
+
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 const setAuthToken = (token) => {
   if (token) {
@@ -10,11 +14,13 @@ const setAuthToken = (token) => {
     delete axios.defaults.headers.common['x-auth-token'];
   }
 };
-
 const login = async (user) => {
   try {
+console.log(apiUrl);
+    
     const res = await axios.post(`${apiUrl}/user/login`, user,{withCredentials:true});
     console.log("login response",res);
+
     if (res.data.statusCode==200) {
       return { success: true, user: res.data };
     } else {

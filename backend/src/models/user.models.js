@@ -38,7 +38,7 @@ userSchema.methods.generateToken = async function () {
     if (this.email) {
         payload.email = this.email;
     }
-console.log("payload ",payload);
+
 
     return jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1d'

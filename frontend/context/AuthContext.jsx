@@ -33,8 +33,6 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     try {
       const user = JSON.parse(localStorage.getItem('user')) || null;
-      console.log("user auth context",user);
-  
       if (user && (user.message && user.message.token || user.token)) {
         setAuthToken( user.token||user.message.token );
         dispatch({ type: 'LOGIN', payload: user });
@@ -63,6 +61,8 @@ const AuthProvider = ({ children }) => {
 
   const HandleSignUp = async (user) => {
     const response = await signin(user);
+    console.log(response);
+    
     if (response.success) {
       localStorage.setItem('user', JSON.stringify(response.user.message));
 

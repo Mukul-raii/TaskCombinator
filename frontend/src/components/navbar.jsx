@@ -3,23 +3,18 @@ import { Button } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import UserProfileDropdown from './userProfile';
-
+import logo from '../assets/logo.png';
 const LoginBtn = () => {
 
 
   return (
-    <div className="flex space-x-4">
-      <Link to="/signin" state={{ setSignIn: false }}>
-        <Button className="px-6 py-2 bg-transparent text-white border border-white rounded-md transition-all duration-300 hover:bg-white hover:text-black">
-          Sign up
-        </Button>
+  
+    <Button className="!px-6 !py-2 border border-2 !bg-blue-500 !text-white rounded-md  ">
+          <Link to="/signin">
+         Get Started
       </Link>
-      <Link to="/signin">
-        <Button className="px-6 py-2 bg-white text-black rounded-md transition-all duration-300 hover:bg-transparent hover:text-white hover:border-white border">
-          Login
         </Button>
-      </Link>
-    </div>
+  
   );
 };
 
@@ -35,7 +30,7 @@ const user=state.user?.message?.user || state.user.name
 
   return (
     <div >
-      <UserProfileDropdown logoutme={logoutme} user={user} />
+      <UserProfileDropdown logoutme={logoutme} userdata={state} />
     </div>
   );
 };
@@ -45,15 +40,18 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-gray-800 text-white flex justify-center  px-6 h-16 shadow-md ">
-      <div className="flex justify-between  items-center w-full mx-auto">
-        {/* Logo / Title */}
+    <div className="bg-white border bottom-1 text-white flex justify-center mx-2 rounded-full px-6 h-16 shadow-white  fixed  top-0 w-full z-10" >
+      <div className="flex justify-between items-center w-full mx-auto">
+    <div className='flex items-center flex-row gap-2'>
+
+    <img src={logo} alt={logo} className='w-11'  />
         <h1
-          className="text-2xl font-bold cursor-pointer hover:text-gray-300"
+          className="text-xl font-bold text-blue-950 cursor-pointer"
           onClick={() => navigate('/')}
-        >
+          >
           TaskCombinator
         </h1>
+          </div>
 
         {/* Right-side buttons */}
         <div className="flex space-x-4">
