@@ -71,16 +71,24 @@ const logout = async (req, res) => {
 };
 
 const loggedInUser = asyncHandler(async (req, res) => {
-    const currentUser = req.user;
-    const user = currentUser._id;
+ try {
+       const currentUser = req.user;
+       const user = currentUser._id;
+   
+       const me = await User.find({ _id: user });
+       const myteams = await Team.find({ teamMembers: user });
+       if (!me) {
+           return res.send(new apiError(404, "User not found"));
+       }
+   
+       res.status(200).json(new apiResponse(200, "User found", { me, myteams }));
+   
+ } catch (error) {
+    res.send(apiError(404, "User not found",error));
+ }
 
-    const me = await User.find({ _id: user });
-    const myteams = await Team.find({ teamMembers: user });
-    if (!me) {
-        return res.send(new apiError(404, "User not found"));
-    }
 
-    res.status(200).json(new apiResponse(200, "User found", { me, myteams }));
+
 });
 /* 
 const GoogleLogin = async (req, res) => {

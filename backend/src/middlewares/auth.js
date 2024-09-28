@@ -6,12 +6,10 @@ const authHandler = async (req, res, next) => {
     const authorization = req.headers['authorization'];
     const token = (authorization && authorization.split(' ')[1]) || req.cookies.token;
 
-
-    
-    
     if (!token) {
       return next(Error);
     }
+console.log(token);
 
     try {
         const decodedToken= jwt.verify(token, process.env.JWT_SECRET);
