@@ -9,7 +9,7 @@ const JoinTeam = () => {
 
 
 const handleJoinTeam=async () => {
-    const response=await axios.put('http://localhost:4000/api/v1/team/join',{teamName},{withCredentials:true})
+    const response=await axios.put(`${process.env.VITE_API_URL}team/join`,{teamName},{withCredentials:true})
     console.log(response.data);
     
 }
