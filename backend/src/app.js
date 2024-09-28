@@ -12,7 +12,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors(
     {
-        origin: ["https://taskcombinator.vercel.app","http://localhost:51731"],
+        origin: ["https://taskcombinator.vercel.app","http://localhost:5173"],
         credentials: true
     }
 ))
