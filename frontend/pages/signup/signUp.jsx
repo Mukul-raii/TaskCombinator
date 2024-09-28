@@ -4,6 +4,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import { AuthContext } from '../../context/AuthContext'
 import 'react-toastify/dist/ReactToastify.css'
 import { FaGithub, FaGoogle } from 'react-icons/fa';
+import { GoogleAuthProvider, signInWithPopup,getAuth } from 'firebase/auth'
+import { auth } from '../../firebase/firebaseConfig'
 
 
 const SignUp = () => {
@@ -31,6 +33,29 @@ const SignUp = () => {
           toast.error('An error occurred during sign up')
       }
   }, [userName, email, password, HandleSignUp, navigate])
+
+  const handleGoogle = () => {
+    const provider = new GoogleAuthProvider()
+      signInWithPopup(auth, provider).then(async (result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const user = result.user;
+        const idToken = await user.getIdToken();
+     
+
+        const userData = {
+          uid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL
+        };
+        console.log(idToken);
+      
+        
+    const response = await HandleGoogleLogin(userData,idToken)
+    
+        
+    })
+}
 
 
   return (
@@ -114,7 +139,9 @@ const SignUp = () => {
         <div className='flex justify-center m-10'>
         <button
       type='submit'
-      className='flex items-center w-[50%] justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+      onClick={handleGoogle}
+
+      className='flex items-center w-[50%] xs:max-md:w-[100%] justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
       aria-label='Continue with Google'
     >
       <FaGoogle className='mr-2 ' />

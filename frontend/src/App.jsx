@@ -9,8 +9,10 @@ import TaskManager from '../pages/task/task';
 import Profile from './components/Profile';
 import { AuthProvider, AuthContext } from '../context/AuthContext';
 
-const PrivateRouter = ({ element, isAuthenticated }) => {
-  return isAuthenticated ? element : <Navigate to="/SignIn" />;
+const PrivateRouter =  ({ element, isAuthenticated }) => {
+
+  
+  return  isAuthenticated ? element : <Navigate to="/SignIn" />;
 }
 
 function App() {
@@ -26,7 +28,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/taskview" element={<PrivateRouter element={<TaskManager />} isAuthenticated={state.isAuthenticated} />} />
+          <Route path="/taskview" element={<PrivateRouter element={<TaskManager />} isAuthenticated={state} />} />
         </Routes>
       </div>
     </AuthProvider>

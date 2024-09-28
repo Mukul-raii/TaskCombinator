@@ -14,8 +14,8 @@ const SignIn=()=>{
   <NavBar/>
      
     <div className='flex justify-center items-center flex-row  bg-white text-black text-white'>
-    <div className='w-7/12  '>
-      <img className='h-screen' src="https://images.unsplash.com/photo-1496917756835-20cb06e75b4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80" />
+    <div className='w-7/12  xs:max-md:hidden '>
+      <img className='h-screen' src="https://res.cloudinary.com/dmvzjbgwp/image/upload/v1727520919/hgrr8xq0nc2wlvkrx8yv.jpg" />
     </div>
         <div className="flex min-h-full flex-1 flex-col justify-center  px-6 py-12 lg:px-8">
 

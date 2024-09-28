@@ -8,6 +8,10 @@ export default {
   ],
   theme: {
   	extend: {
+		screens: {
+			'xs': '400px', // Custom small screen breakpoint
+			'3xl': '1600px', // Custom large screen breakpoint
+		  },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',

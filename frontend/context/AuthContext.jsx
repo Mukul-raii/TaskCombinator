@@ -31,26 +31,30 @@ const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    try {
-      const user = JSON.parse(localStorage.getItem('user')) || null;
-      if (user && (user.message && user.message.token || user.token)) {
-        setAuthToken( user.token||user.message.token );
-        dispatch({ type: 'LOGIN', payload: user });
-    }
-    
-    } catch (error) {
-      console.error('Error parsing user from localStorage:', error);
-    }
+  try {
+    const user = JSON.parse(localStorage.getItem('user')) || null;
+    if (user && (user.message && user.message.token || user.token)) {
+      setAuthToken( user.token||user.message.token );
+      dispatch({ type: 'LOGIN', payload: user });
+  }
+  
+  } catch (error) {
+    console.error('Error parsing user from localStorage:', error);
+  }
+
+   
   }, []);
   
   const HandleLogin = async (user) => {
     const response = await login(user);
     const token =response.user.message.token
     const VerifiedUser=response.user
+    console.log("response",response);
+    
     if (response.success) {
       localStorage.setItem('user', JSON.stringify(VerifiedUser));
-       
       dispatch({ type: 'LOGIN' ,payload: VerifiedUser});
+      
       navigate('/taskview');
       return response.data;
     } else {

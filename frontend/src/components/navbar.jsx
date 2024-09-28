@@ -9,11 +9,11 @@ const LoginBtn = () => {
 
   return (
   
-    <Button className="!px-6 !py-2 border border-2 !bg-blue-500 !text-white rounded-md  ">
+    <button className="px-6 py-2    border border-2 bg-blue-500 text-white  xs:max-md:rounded-xl xs:max-md:h-10 xs:max-md:text-sm  rounded-lg  ">
           <Link to="/signin">
          Get Started
       </Link>
-        </Button>
+        </button>
   
   );
 };
@@ -40,11 +40,11 @@ const NavBar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white border bottom-1 text-white flex justify-center mx-2 rounded-full px-6 h-16 shadow-white  fixed  top-0 w-full z-10" >
+    <div className="bg-white border bottom-1 text-white flex justify-center mx-2 rounded-full px-6 h-16 xs:max-md:px-1 xs:max-md:h-14 shadow-white  fixed  top-0 w-full z-10" >
       <div className="flex justify-between items-center w-full mx-auto">
     <div className='flex items-center flex-row gap-2'>
 
-    <img src={logo} alt={logo} className='w-11'  />
+    <img src={logo} alt={logo} className='w-11 '  />
         <h1
           className="text-xl font-bold text-blue-950 cursor-pointer"
           onClick={() => navigate('/')}

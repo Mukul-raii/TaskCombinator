@@ -13,7 +13,8 @@ const Login = ({ setSignIn }) => {
   const [password, setPassword] = useState('')
 
   const navigate = useNavigate()
-  const { HandleLogin,HandleGoogleLogin } = useContext(AuthContext)
+  const { HandleLogin,HandleGoogleLogin ,state} = useContext(AuthContext)
+console.log(state);
 
   const onSubmit = useCallback(async () => {
       try {
@@ -135,7 +136,7 @@ const Login = ({ setSignIn }) => {
           <div className='flex justify-center m-10'>
           <button
       type='submit'
-      className='flex items-center w-[50%] justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
+      className='flex items-center w-[50%] xs:max-md:w-[100%] justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
       aria-label='Continue with Google'
     >
       <FaGoogle className='mr-2 ' />

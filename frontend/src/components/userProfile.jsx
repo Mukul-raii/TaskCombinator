@@ -39,12 +39,12 @@ export default function UserProfileDropdown({ logoutme, userdata }) {
     const toggleDropdown = () => setIsOpen(!isOpen)
     const navigate = useNavigate()
     return (
-        <div className='relative border border-black p-1 w-40  text-black rounded-xl' ref={dropdownRef}>
+        <div className='relative border border-black p-1 w-40 xs:max-md:w-28 xs:max-md:m-4 xs:max-md:h-8  text-black rounded-xl' ref={dropdownRef}>
             <div className='flex flex-row justify-between items-center gap-2 '>
                 <div className='flex justify-start flex-row'>
                     <div
                         onClick={() => navigate('/taskview')}
-                        className='justify-center w-10 h-10 bg-blue-500 cursor-pointer text-white rounded-xl flex items-center'>
+                        className='justify-center w-10 h-10 xs:max-md:h-6 xs:max-md:rounded-lg xs:max-md:w-6 bg-blue-500 cursor-pointer text-white rounded-xl flex items-center'>
                         {profilePic ? (
                             <img
                                 src={profilePic || '/placeholder.svg?height=128&width=128'}
