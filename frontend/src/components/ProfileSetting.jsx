@@ -1,4 +1,3 @@
-import { set } from 'mongoose'
 import React, { useState, useRef, useEffect } from 'react'
 
 export default function ProfileModal({ onClose, userdata }) {
