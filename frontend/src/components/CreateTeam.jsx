@@ -13,7 +13,7 @@ const CreateTeam = () => {
     try {
       const response = await axios.post(
         `
-        ${process.env.VITE_API_URL}/team/create`
+        ${import.meta.env.VITE_API_URL}/team/create`
         ,
         { teamName, teamMembers },
         { withCredentials: true }

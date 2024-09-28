@@ -13,7 +13,7 @@ const{state}=useContext(AuthContext)
         const getUserTasks=async () => {
             
             const response = await axios.get(`
-              ${process.env.VITE_API_URL}/task/UserTasks`
+              ${import.meta.env.VITE_API_URL}/task/UserTasks`
               ,{withCredentials:true})
       
             setUserTask(response.data.message.tasks)

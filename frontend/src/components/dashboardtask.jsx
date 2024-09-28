@@ -41,7 +41,7 @@ export function DashboardCards({ task ,teamId,user}) {
 
             try {
                 const response = await axios.put(
-                    `${process.env.VITE_API_URL}/task/update/`,
+                    `${import.meta.env.VITE_API_URL}/task/update/`,
                     { teamId, taskStatus: status, assignTo, taskID: _id },
                     {
                         withCredentials: true

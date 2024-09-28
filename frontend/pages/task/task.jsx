@@ -50,7 +50,7 @@ const TaskManager = () => {
     useEffect(() => {
         const getTasks = async () => {
             try {
-                const response = await axios.get(`${process.env.VITE_API_URL}/task/all`, {
+                const response = await axios.get(`${import.meta.env.VITE_API_URL}/task/all`, {
                     params: { teamId: selectTeam },
                     withCredentials: true
                 })
@@ -58,7 +58,7 @@ const TaskManager = () => {
                 setIsAdmin(response.data.message.isAdmin)
                 setTeamName(response.data.message.team.teamName)
 
-                const response2 = await axios.get(`${process.env.VITE_API_URL}/team/getall`, {
+                const response2 = await axios.get(`${import.meta.env.VITE_API_URL}/team/getall`, {
                     params: { teamId: selectTeam },
                     withCredentials: true
                 })

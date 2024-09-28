@@ -6,7 +6,7 @@ dotenv.config({ path: "../.env" })
 
 
   
-const PORT =process.env.PORT
+const PORT =import.meta.env.PORT
 
 
 ConnectDb()

@@ -16,7 +16,7 @@ const CreateNewTask = ({selectTeam }) => {
   setIsLoading(true)
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`${process.env.VITE_API_URL}/v1/team/getall`, {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/team/getall`, {
           withCredentials: true,
           params: { teamId: selectTeam }
         });
@@ -36,7 +36,7 @@ const CreateNewTask = ({selectTeam }) => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.VITE_API_URL}/v1/task/create`,
+        `${import.meta.env.VITE_API_URL}/v1/task/create`,
         {
           taskName,
           taskDescription,

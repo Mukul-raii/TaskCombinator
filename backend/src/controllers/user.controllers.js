@@ -5,7 +5,7 @@ import { User } from "../models/user.models.js";
 import { decode } from "jsonwebtoken";
 import { Team } from "../models/team.models.js";
 import { OAuth2Client } from "google-auth-library";
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const client = new OAuth2Client(import.meta.env.GOOGLE_CLIENT_ID);
 
 const signup = asyncHandler(async (req, res) => {
     const { userName, email, password } = req.body;
@@ -91,7 +91,7 @@ const GoogleLogin = async (req, res) => {
         
         const ticket = await client.verifyIdToken({
             idToken,
-            audience: process.env.GOOGLE_CLIENT_ID,
+            audience: import.meta.env.GOOGLE_CLIENT_ID,
         });
         console.log(ticket);
         
