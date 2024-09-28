@@ -40,7 +40,7 @@ userSchema.methods.generateToken = async function () {
     }
 
 
-    return jwt.sign(payload, import.meta.env.JWT_SECRET, {
+    return jwt.sign(payload, process.env.JWT_SECRET, {
             expiresIn: '1d'
         }
     )

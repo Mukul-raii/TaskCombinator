@@ -6,13 +6,13 @@ dotenv.config({ path: "../.env" })
 
 
   
-const PORT =import.meta.env.PORT
+const RunningPORT =process.env.PORT
 
 
 ConnectDb()
 .then(() => {
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`)
+    app.listen(RunningPORT, () => {
+        console.log(`Server is running on port ${RunningPORT}`)
     })
 }).catch((error) => {
     console.log(error)

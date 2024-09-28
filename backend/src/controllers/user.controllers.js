@@ -90,7 +90,7 @@ const GoogleLogin = async (req, res) => {
         
         const ticket = await client.verifyIdToken({
             idToken,
-            audience: import.meta.env.GOOGLE_CLIENT_ID,
+            audience: process.env.GOOGLE_CLIENT_ID,
         });
         console.log(ticket);
         

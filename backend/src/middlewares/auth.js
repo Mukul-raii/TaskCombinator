@@ -14,7 +14,7 @@ const authHandler = async (req, res, next) => {
     }
 
     try {
-        const decodedToken= jwt.verify(token, import.meta.env.JWT_SECRET);
+        const decodedToken= jwt.verify(token, process.env.JWT_SECRET);
         
         req.user = decodedToken;
       
