@@ -27,7 +27,8 @@ app.use("/api/v1/team",teamRoute)
 app.use("/api/v1/task",taskRoute)
 
 app.get('/', (_req, res) => {
-    res.send('Server is running');
+    console.log("Hello");
+    
 });
 
 
