@@ -12,7 +12,9 @@ const CreateTeam = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${process.env.VITE_API_URL}team/create`,
+        `
+        ${process.env.VITE_API_URL}/team/create`
+        ,
         { teamName, teamMembers },
         { withCredentials: true }
       );

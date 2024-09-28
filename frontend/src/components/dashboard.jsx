@@ -12,7 +12,9 @@ const{state}=useContext(AuthContext)
       useEffect(()=>{
         const getUserTasks=async () => {
             
-            const response = await axios.get(`${process.env.VITE_API_URL}task/UserTasks`,{withCredentials:true})
+            const response = await axios.get(`
+              ${process.env.VITE_API_URL}/task/UserTasks`
+              ,{withCredentials:true})
       
             setUserTask(response.data.message.tasks)
             

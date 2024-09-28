@@ -117,7 +117,7 @@ export function CardWithForm({ task, teamId }) {
 
             try {
                 const response = await axios.put(
-                    `${process.env.VITE_API_URL}task/update/`,
+                    `${process.env.VITE_API_URL}/task/update/`,
                     { teamId, taskStatus: status, assignTo, taskID },
                     {
                         withCredentials: true

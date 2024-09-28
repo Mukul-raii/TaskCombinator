@@ -14,6 +14,7 @@ const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const { HandleSignUp } = useContext(AuthContext)
+  const { HandleLogin,HandleGoogleLogin ,state} = useContext(AuthContext)
   const navigate = useNavigate()
 
   const onSubmit = useCallback(async (e) => {
@@ -52,6 +53,7 @@ const SignUp = () => {
       
         
     const response = await HandleGoogleLogin(userData,idToken)
+    console.log(response);
     
         
     })

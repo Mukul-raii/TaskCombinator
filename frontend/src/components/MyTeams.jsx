@@ -8,7 +8,7 @@ const MyTeams = ({ getTeams }) => {
   useEffect(() => {
     const fetchUserTeams = async () => {
       try {
-        const response = await axios.get(`${process.env.VITE_API_URL}user/getme`, {
+        const response = await axios.get(`${process.env.VITE_API_URL}/user/getme`, {
           withCredentials: true
         });
         console.log("getme",response.data);

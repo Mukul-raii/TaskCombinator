@@ -14,7 +14,7 @@ const Login = ({ setSignIn }) => {
 
   const navigate = useNavigate()
   const { HandleLogin,HandleGoogleLogin ,state} = useContext(AuthContext)
-console.log(state);
+
 
   const onSubmit = useCallback(async () => {
       try {
@@ -136,6 +136,7 @@ console.log(state);
           <div className='flex justify-center m-10'>
           <button
       type='submit'
+      onClick={handleGoogle}
       className='flex items-center w-[50%] xs:max-md:w-[100%] justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2'
       aria-label='Continue with Google'
     >
