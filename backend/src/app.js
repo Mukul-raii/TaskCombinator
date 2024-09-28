@@ -17,17 +17,13 @@ app.use(cors(
     }
 ))
 
-app.use(express.json())
-
-
-
 
 app.use("/api/v1/user",userRoute)
 app.use("/api/v1/team",teamRoute)
 app.use("/api/v1/task",taskRoute)
 
 app.get('/', (_req, res) => {
-    console.log("Hello");
+   res.send("hello from server")
     
 });
 
