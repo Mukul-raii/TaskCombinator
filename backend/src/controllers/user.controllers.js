@@ -2,10 +2,9 @@ import asyncHandler from "../utils/asyncHandler.js";
 import apiError from "../utils/apiError.js";
 import apiResponse from "../utils/apiResponse.js";
 import { User } from "../models/user.models.js";
-import { decode } from "jsonwebtoken";
+
 import { Team } from "../models/team.models.js";
-import { OAuth2Client } from "google-auth-library";
-const client = new OAuth2Client(import.meta.env.GOOGLE_CLIENT_ID);
+
 
 const signup = asyncHandler(async (req, res) => {
     const { userName, email, password } = req.body;
