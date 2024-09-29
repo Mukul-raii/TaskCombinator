@@ -36,6 +36,8 @@ const Login = ({ setSignIn }) => {
       }
   }, [email, password, HandleLogin, navigate])
 
+
+  
   const handleGoogle = () => {
       const provider = new GoogleAuthProvider()
         signInWithPopup(auth, provider).then(async (result) => {
@@ -51,9 +53,6 @@ const Login = ({ setSignIn }) => {
             photoURL: user.photoURL
           };
           console.log(idToken);
-          
-    
-        
 
           
       const response = await HandleGoogleLogin(userData,idToken)

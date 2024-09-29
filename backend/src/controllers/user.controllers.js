@@ -48,13 +48,13 @@ const login = asyncHandler(async (req, res, next) => {
     const option = {
         httpOnly: true,
         secure: true,
-        path: "/",
+        sameSite: "None"
     };
 
     const token = await user.generateToken();
 
     return res
-        .set("Authorization", `Bearer ${token}`)
+        .setHeader('Authorization', `Bearer ${token}`)
         .cookie("token", token, option)
         .send(new apiResponse(200, "User logged in successfully", { user, token }));
 });

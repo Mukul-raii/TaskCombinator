@@ -49,20 +49,30 @@ const TaskManager = () => {
 
     useEffect(() => {
         const getTasks = async () => {
+            const token = localStorage.getItem('token') // Retrieve the token from storage (or where you're storing it)
+        
             try {
+                // First API call
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/task/all`, {
                     params: { teamId: selectTeam },
+                    headers: {
+                        Authorization: `Bearer ${token}` // Pass the token here
+                    },
                     withCredentials: true
                 })
-
+        
                 setIsAdmin(response.data.message.isAdmin)
                 setTeamName(response.data.message.team.teamName)
-
+        
+                // Second API call
                 const response2 = await axios.get(`${import.meta.env.VITE_API_URL}/team/getall`, {
                     params: { teamId: selectTeam },
+                    headers: {
+                        Authorization: `Bearer ${token}` // Pass the token here
+                    },
                     withCredentials: true
                 })
-
+        
                 setTeamdata(response2.data.message)
                 setTaskData(response2.data.message.tasks)
             } catch (err) {
@@ -71,6 +81,7 @@ const TaskManager = () => {
                 setIsLoading(false)
             }
         }
+        
 
         if (selectTeam) {
             getTasks()

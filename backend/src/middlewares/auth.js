@@ -4,7 +4,13 @@ import jwt from "jsonwebtoken";
 
 const authHandler = async (req, res, next) => {
     const authorization = req.headers["authorization"];
-    const token = (authorization && authorization.split(" ")[1]) || req.cookies.token;
+   // const token = (authorization && authorization.split(" ")[1]) || req.cookies.token;
+
+    const token =
+      req.cookies?.token ||
+      req.header('Authorization')?.replace('Bearer ', '') ||
+      req.body?.token;
+
 
     if (!token) {
         return next(Error);
