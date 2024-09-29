@@ -123,6 +123,8 @@ console.log("assing",isAssigne);
 
 const getAllTasks = asyncHandler(async (req, res) => {
   const { teamId } = req.query;
+  console.log(req.headers);
+  
   const currentUser = req.user;
 
   const team = await Team.findOne({ teamId });

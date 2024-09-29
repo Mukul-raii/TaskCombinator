@@ -70,6 +70,7 @@ const logout = async (req, res) => {
         .send(new apiResponse(200, "User logged out successfully"));
 };
 
+
 const loggedInUser = asyncHandler(async (req, res) => {
  try {
        const currentUser = req.user;
