@@ -11,11 +11,12 @@ const authHandler = async (req, res, next) => {
       req.header('Authorization')?.replace('Bearer ', '') ||
       req.body?.token;
 
+    console.log("token --",token);
 
     if (!token) {
         return next(Error);
     }
-    console.log(token);
+    
 
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
