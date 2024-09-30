@@ -9,8 +9,14 @@ export default {
   theme: {
   	extend: {
 		screens: {
-			'xs': '400px', // Custom small screen breakpoint
+			'xs': '350px', // Custom small screen breakpoint
 			'3xl': '1600px', // Custom large screen breakpoint
+		/* 	sm: min-width of 640px.
+			md: min-width of 768px.
+			lg: min-width of 1024px.
+			xl: min-width of 1280px.
+			2xl: min-width of 1536px. */
+			
 		  },
   		borderRadius: {
   			lg: 'var(--radius)',

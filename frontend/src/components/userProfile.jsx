@@ -39,7 +39,7 @@ export default function UserProfileDropdown({ logoutme, userdata }) {
     const toggleDropdown = () => setIsOpen(!isOpen)
     const navigate = useNavigate()
     return (
-        <div className='relative border border-black p-1 w-40 xs:max-md:w-28 xs:max-md:m-4 xs:max-md:h-8  text-black rounded-xl' ref={dropdownRef}>
+        <div className='relative border border-black p-1 w-40 xs:max-md:w-28  xs:max-md:m-4 xs:max-md:h-8  text-black rounded-xl' ref={dropdownRef}>
             <div className='flex flex-row justify-between items-center gap-2 '>
                 <div className='flex justify-start flex-row'>
                     <div
@@ -78,7 +78,7 @@ export default function UserProfileDropdown({ logoutme, userdata }) {
             </div>
 
             {isOpen && (
-                <div className='absolute right-0 mt-2 w-48 bg-white1 rounded-md shadow-lg py-1 ring-1 ring-black ring-opacity-5'>
+                <div className='absolute right-0 mt-2 w-48 bg-white1 rounded-md shadow-lg py-1 ring-1 bg-white ring-black ring-opacity-5'>
                     <div className='px-4 py-2 text-sm text-gray-700 border-b border-gray-200'>
                         <p className='text-md text-gray-800'>{email}</p>
                     </div>

@@ -1,31 +1,12 @@
 .hero-background {
-    background-image: 
-      linear-gradient(
-        172deg in oklab,
-        oklch(100% 0.00 340) 22% 22%, 64%, #48cae4 84% 0%
-      )
-    ;
- 
-  }
+    background-image: linear-gradient(172deg in oklab, oklch(100% 0 340) 22% 22%, 64%, #48cae4 84% 0%);
+}
 
-  .HeroImage{
+.HeroImage {
+    background-image: linear-gradient(to bottom left in oklab, oklch(55% 0.45 350) 0%, oklch(95% 0.4 95) 100%);
+}
+.HeroImage2 {
+    background-image: linear-gradient(325deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0.4) 100%);
 
-      background-image: 
-        linear-gradient(
-          to bottom left in oklab,
-          oklch(55% .45 350) 0%, oklch(95% .4 95) 100%
-        )
-      ;
-    
-  }
-  .HeroImage2 {
-    background-image: 
-      linear-gradient(
-        325deg,
-        rgba(255, 255, 255, 0.45) 0%,  
-        rgba(255, 255, 255, 0.4) 100%
-      );
-    
     border-radius: 1.8rem;
-  }
-  
+}

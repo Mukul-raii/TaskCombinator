@@ -6,8 +6,8 @@ import Footbar from '../footbar'
 
 const Herosection = () => {
     return (
-        <>
-            <div className='h-screen hero-background flex  justify-start  flex-col '>
+        <> 
+            <div className='h-screen xs:h-[950px]  hero-background flex  justify-start  flex-col '>
                 <div className='h-32'></div>
                 <div className=' flex justify-center items-center    '>
                     <p className=' w-fit p-2 px-4 border border-black text-neutral-800 font-semibold  rounded-full '>
@@ -16,15 +16,15 @@ const Herosection = () => {
                 </div>
                 <div className='flex justify-center items-start flex-row text-black  '>
                     <div className='w-full  flex justify-evenly xs:max-md:justify-center xs:max-md:p-2 items-center flex-col h-auto '>
-                        <div className=' xs:max-md:justify-center xs:max-md:text-center xs:max-md:items-center '>
+                        <div className=' xs:max-md:justify-center  flex justify-center flex-col  items-center xs:max-md:text-center xs:max-md:items-center '>
                             <h1 className='text-5xl xs:max-md:text-3xl font-bold xs:max-md:pb-1 p-3'>
                                 TaskCombinator – Effortlessly Combine Your Tasks,{' '}
                             </h1>
-                            <h1 className='text-5xl xs:max-md:text-3xl font-bold xs:max-md:pt-0 p-3'>
+                            <h1 className='text-5xl max-w-fit xs:max-md:text-3xl font-bold xs:max-md:pt-0 p-3'>
                                 and Unlock Your True Potential.
                             </h1>
                         </div>
-                        <div>
+                        <div className='p-1 text-center'>
                             <p className='text-lg xs:max-md:text-md xs:max-md:px-1  text-stone-600 px-3'>
                                 Streamline your workflow by forming teams and delegating tasks efficiently.
                             </p>
@@ -33,10 +33,10 @@ const Herosection = () => {
                             </p>
                         </div>
 
-                        <div className='flex justify-center items-center  p-8  '>
-                            <div className=' p-3  '>
+                        <div className='flex justify-between flex-row  p-2 md:p-20  sm:p-10  '>
+                            <div className=' flex-1 flex  flex-col justify-between p-3  '>
                                 <svg
-                                    className='w-20 xs:max-md:w-10 xs:max-md:h-10 h-20 white fill-sky-800'
+                                    className='w-20 xs:max-md:w-9 xs:max-md:h-10 h-20 white fill-sky-800'
                                     fill='black'
                                     height='800px'
                                     width='800px'
@@ -70,9 +70,10 @@ const Herosection = () => {
                                     Create dynamic teams that enhance productivity and foster collaboration.
                                 </p>
                             </div>
-                            <div className=' p-3 '>
+                            <div className=' flex-1 flex  flex-col justify-between p-3  '>
+
                                 <svg
-                                    className='w-20 max-md:w-10 xs:max-md:h-10  h-20 white fill-sky-800'
+                                    className='w-20 max-md:w-9 xs:max-md:h-10  h-20 white fill-sky-800'
                                     fill='white'
                                     height='800px'
                                     width='800px'
@@ -115,17 +116,17 @@ const Herosection = () => {
                     </div>
                 </div>
             </div>
-            <div className='h-[810px]  xs:max-md:h-56  w-full flex justify-center   HeroImage'>
-                <div className='h-[810px] xs:max-md:h-56 bg-opacity-50 w-[90%] mt-[-100px] xs:max-md:mt-[-40px] rounded-3xl p-8 xs:max-md:p-4 backdrop-blur-lg HeroImage2 transform transition-all duration-300 hover:scale-105'>
+            <div className='h-[810px]  xs:max-md:h-56   w-full flex justify-center   HeroImage'>
+                <div className='h-[810px]  xs:max-md:h-56 bg-opacity-50 w-[90%] mt-[-100px] xs:max-md:mt-[-40px] rounded-3xl p-8 xs:max-md:p-4 backdrop-blur-lg HeroImage2 transform transition-all duration-300 hover:scale-105'>
                     <img
-                        className='rounded-3xl transform transition-all duration-300  hover:scale-100'
+                        className='rounded-3xl transform transition-all duration-300  hover:scale-102'
                         src='https://res.cloudinary.com/dmvzjbgwp/image/upload/v1727458714/s8zxfnhpvro1n4rcmtv5.png'
                     />
                 </div>
             </div>
-            <div className=' px-4 h-[600px] xs:max-md:h-[1100px] flex justify-center items-center p-24  xs:max-md:p-14   flex-col gap-2 '>
+            <div className=' px-4 h-[600px\ max-xs:h-[1200px]  md:h-[1100px] flex justify-center items-center p-24  xs:max-md:p-14   flex-col gap-2 '>
                 <h2 className='text-3xl font-semibold text-center mb-2'>Features</h2>
-                <div className='grid grid-cols-1 xs:max-md:grid-cols-1  lg:grid-cols-3 p-16 xs:max-md:p-2 xs:max-md:gap-6 gap-10'>
+                <div className='grid grid-cols-1 xs:max-md:grid-cols-1  lg:grid-cols-3 p-16 xs:max-md:p-2 xs:max-md:gap-6  gap-10'>
                     <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
                         <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Smart Task Management</h3>
                         <p className='xs:max-md:text-xs'>

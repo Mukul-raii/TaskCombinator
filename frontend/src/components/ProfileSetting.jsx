@@ -36,10 +36,8 @@ export default function ProfileModal({ onClose, userdata }) {
     }
 
     return (
-        <div
-            className='fixed inset-0 bg-black bg-opacity-50 flex justify-center rounded-3xl items-center z-50'
-            onClick={handleOverlayClick}>
-            <div className='bg-white rounded-3xl shadow-xl p-6 w-full max-w-md transform transition-all duration-300 ease-in-out'>
+     
+            <div className='bg-blue-50  rounded-3xl shadow-xl p-6 xs:max-md:p-4 xs:max-md:w-80 w-full  transform transition-all duration-300 ease-in-out'>
                 <div className='relative mb-6'>
                     <div className='w-32 h-32 rounded-full overflow-hidden mx-auto mb-4 border-4 border-blue-500'>
                        {profilePic&& (
@@ -144,6 +142,6 @@ export default function ProfileModal({ onClose, userdata }) {
                     </svg>
                 </button>
             </div>
-        </div>
+   
     )
 }
