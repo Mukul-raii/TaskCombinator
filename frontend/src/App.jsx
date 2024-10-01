@@ -8,7 +8,7 @@ import Home from '../pages/home/Home';
 import TaskManager from '../pages/task/task';
 import Profile from './components/Profile';
 import { AuthProvider, AuthContext } from '../context/AuthContext';
-
+import { ToastContainer } from 'react-toastify';
 const PrivateRouter =  ({ element, isAuthenticated }) => {
 
   
@@ -22,6 +22,8 @@ function App() {
   return (
     <AuthProvider>
       <div className="App">
+      <ToastContainer />
+
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />

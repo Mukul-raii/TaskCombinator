@@ -83,6 +83,7 @@ import * as React from 'react'
 import { useState, useEffect ,useContext} from 'react'
 import axios from 'axios'
 import { AuthContext } from '../../context/AuthContext'
+import { toast } from 'react-toastify'
 export function CardWithForm({ task, teamId }) {
 
     const {
@@ -123,7 +124,14 @@ export function CardWithForm({ task, teamId }) {
                         withCredentials: true
                     }
                 )
-                console.log('Update sent: ', response.data)
+                console.log("response",response.data);
+                
+                if(response.statusCode===200){
+                  toast.success('Task Updated Successfully')
+
+                }else{
+                  toast.error('Task Not Updated')
+                }
             } catch (error) {
                 console.error('Error updating status:', error)
             } finally {

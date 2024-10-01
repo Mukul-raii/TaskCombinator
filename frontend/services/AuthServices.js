@@ -16,8 +16,7 @@ const setAuthToken = (token) => {
 };
 const login = async (user) => {
   try {
-console.log(apiUrl);
-    
+
     const res = await axios.post(`${apiUrl}/user/login`, user,{withCredentials:true});
     console.log("login response",res);
 

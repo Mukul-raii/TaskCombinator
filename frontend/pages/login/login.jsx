@@ -20,14 +20,17 @@ const Login = ({ setSignIn }) => {
       try {
           const response = await HandleLogin({ email, password })
           console.log('Login response', response)
-
-          if (response) {
-              toast.success('Login Successful')
+          
+          if (response.success) {
+              toast.success('Login Successful',{
+                position: 'top-right',
+                autoClose: 1000
+              })
               navigate('/taskview')
           } else {
               toast.error('Login Failed', {
                   position: 'top-right',
-                  autoClose: 5000
+                  autoClose: 3000
               })
           }
       } catch (error) {
@@ -58,6 +61,22 @@ const Login = ({ setSignIn }) => {
       const response = await HandleGoogleLogin(userData,idToken)
       
 
+      console.log("google res sign ",response);
+
+      if(response){
+          toast.success('Login Successful',{
+              position: 'top-right',
+              autoClose: 1000
+            })
+            navigate('/taskview');
+      }
+      else{
+          toast.error('Login Failed', {
+              position: 'top-right',
+              autoClose: 3000
+          })
+      }
+      
           
       })
   }
@@ -65,7 +84,6 @@ const Login = ({ setSignIn }) => {
   return (
       <>
           <div className='sm:mx-auto sm:w-full sm:max-w-sm text-black'>
-              
               <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight'>
                Log In
               </h2>
@@ -80,10 +98,8 @@ const Login = ({ setSignIn }) => {
                       <div className='mt-2'>
                           <input
                               id='email'
-                              type='email'
                               onChange={(e) => setEmail(e.target.value)}
                               required
-                              autoComplete='email'
                               className='block w-full rounded-md border-0 py-1.5 p-1 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-sky-600 sm:text-sm sm:leading-6'
                           />
                       </div>

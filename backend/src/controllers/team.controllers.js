@@ -69,17 +69,21 @@ const deleteTeam = asyncHandler(async (req, res) => {
 });
 
 const joinTeam = asyncHandler(async (req, res) => {
-    const { teamName } = req.body;
-    const team = await Team.findOne({ teamName:teamName });
-    console.log(team);
-    team.teamMembers.push(req.user._id);
-    
-    await team.save();
-    const user = await User.findById(req.user._id);
-    user.teams.push(team._id);
-
-    await user.save();
-    return res.send(new apiResponse(200, "Team joined successfully", team));
+   try {
+     const { teamName } = req.body;
+     const team = await Team.findOne({ teamName:teamName });
+     console.log(team);
+     team.teamMembers.push(req.user._id);
+     
+     await team.save();
+     const user = await User.findById(req.user._id);
+     user.teams.push(team._id);
+ 
+     await user.save();
+     return res.send(new apiResponse(200, "Team joined successfully", team));
+   } catch (error) {
+    return res.send(new apiError(400, "Error joining team"));
+   }
 });
 
 

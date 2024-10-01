@@ -23,12 +23,22 @@ const SignUp = () => {
        
         
           const response = await HandleSignUp({ userName, email, password })
-          console.log('SignUp response', response)
+          console.log(response);
+          
 
-          if (response) {
-              toast.success('Sign Up Successful')
+          if (response.statusCode="200") {
+             
+            toast.success('Sign up Successful',{
+                position: 'top-right',
+                autoClose: 1000
+              })
               navigate('/signin')
-          } 
+          } else{
+            toast.error('Sign up Failed', {
+                position: 'top-right',
+                autoClose: 3000
+            })
+          }
       } catch (error) {
           console.error(error)
           toast.error('An error occurred during sign up')
@@ -48,12 +58,25 @@ const SignUp = () => {
           name: user.displayName,
           email: user.email,
           photoURL: user.photoURL
-        };
-        console.log(idToken);
-      
+        }
         
     const response = await HandleGoogleLogin(userData,idToken)
-    console.log(response);
+
+console.log("google res sign ",response);
+
+    if(response){
+        toast.success('Login Successful',{
+            position: 'top-right',
+            autoClose: 1000
+          })
+          navigate('/taskview');
+    }
+    else{
+        toast.error('Login Failed', {
+            position: 'top-right',
+            autoClose: 3000
+        })
+    }
     
         
     })

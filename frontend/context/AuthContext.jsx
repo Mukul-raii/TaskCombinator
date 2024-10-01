@@ -54,9 +54,7 @@ const AuthProvider = ({ children }) => {
     if (response.success) {
       localStorage.setItem('user', JSON.stringify(VerifiedUser));
       dispatch({ type: 'LOGIN' ,payload: VerifiedUser});
-      
-      navigate('/taskview');
-      return response.data;
+      return response;
     } else {
       console.log(response.user);
     }
@@ -65,11 +63,10 @@ const AuthProvider = ({ children }) => {
 
   const HandleSignUp = async (user) => {
     const response = await signin(user);
-    console.log(response);
-    
+  
     if (response.success) {
       localStorage.setItem('user', JSON.stringify(response.user.message));
-
+return response
     } else {
       console.log(response.Error);
     }
@@ -89,9 +86,9 @@ const AuthProvider = ({ children }) => {
 
   const HandleGoogleLogin =async (userData,idToken) => {
     const response=await signinWithGOogle(userData,idToken)
-console.log("gogole response",response.user.message.token);
+
 const token =response.user.message.token
-console.log("tokeon ",token);
+
 
 const payload={
   ...userData,token
@@ -103,8 +100,8 @@ const payload={
        
     dispatch({ type: 'LOGIN' ,payload:payload  });
 
-      navigate('/taskview');
-      return response.data;
+   
+      return response
     } else {
       console.log(response.user);
     }

@@ -25,10 +25,17 @@ const{state}=useContext(AuthContext)
 
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-6 gap-6 ">
         {userTask
         .filter((task)=>task.taskStatus!=="Completed")
-        .map((task,index)=>(<DashboardCards key={index} user={state} task={task} /> ))}
+        .map((task,index)=>(
+ 
+        <div
+        key={index}>
+            <DashboardCards key={index} user={state} task={task} />
+
+    </div>
+         ))}
 
    </div>
   )

@@ -116,15 +116,15 @@ const Herosection = () => {
                     </div>
                 </div>
             </div>
-            <div className='h-[810px]  xs:max-md:h-56   w-full flex justify-center   HeroImage'>
-                <div className='h-[810px]  xs:max-md:h-56 bg-opacity-50 w-[90%] mt-[-100px] xs:max-md:mt-[-40px] rounded-3xl p-8 xs:max-md:p-4 backdrop-blur-lg HeroImage2 transform transition-all duration-300 hover:scale-105'>
+            <div className='h-[810px]  xs:max-md:h-56    w-full flex justify-center   HeroImage'>
+                <div className='h-[810px]  xs:max-md:h-56  lg:max-3xl:30 bg-opacity-50 w-[90%] mt-[-100px] xs:max-md:mt-[-40px] rounded-3xl p-8 xs:max-md:p-4 backdrop-blur-lg HeroImage2 transform transition-all duration-300 hover:scale-105'>
                     <img
-                        className='rounded-3xl transform transition-all duration-300  hover:scale-102'
+                        className='rounded-3xl md:max-3xl:h-[750px] xs:max-sm:h-[184px] transform transition-all duration-300  hover:scale-102'
                         src='https://res.cloudinary.com/dmvzjbgwp/image/upload/v1727458714/s8zxfnhpvro1n4rcmtv5.png'
                     />
                 </div>
             </div>
-            <div className=' px-4 h-[600px\ max-xs:h-[1200px]  md:h-[1100px] flex justify-center items-center p-24  xs:max-md:p-14   flex-col gap-2 '>
+            <div className=' px-4 h-[600px]   xs:max-sm:h-4/5 md:h-full md:my-11 flex justify-center items-center   xs:max-md:p-14   flex-col gap-2 '>
                 <h2 className='text-3xl font-semibold text-center mb-2'>Features</h2>
                 <div className='grid grid-cols-1 xs:max-md:grid-cols-1  lg:grid-cols-3 p-16 xs:max-md:p-2 xs:max-md:gap-6  gap-10'>
                     <div className='bg-white shadow-lg rounded-lg p-5 text-left '>

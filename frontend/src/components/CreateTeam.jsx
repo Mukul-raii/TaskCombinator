@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 
-const CreateTeam = () => {
+const CreateTeam = ({onClose}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [teamName, setTeamName] = useState('');
   const [teamMembers, setTeamMembers] = useState('');
@@ -19,8 +19,11 @@ const CreateTeam = () => {
         { withCredentials: true }
       );
       console.log(response.data);
-      toast.success('Team created successfully');
-      handleClose();
+      if(response.data.statusCode == "201"){
+
+        toast.success('Team created successfully');
+        onClose();
+      }
     } catch (error) {
       toast.error('Error creating team');
     } finally {

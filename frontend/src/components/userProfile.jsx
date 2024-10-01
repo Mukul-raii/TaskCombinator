@@ -1,17 +1,25 @@
 import { Button, Modal, Box } from '@mui/material'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect,useContext } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom'
 import ProfileModal from './ProfileSetting'
+import { AuthContext } from '../../context/AuthContext'
 
-export default function UserProfileDropdown({ logoutme, userdata }) {
+export default function UserProfileDropdown({ logoutme }) {
     const [isOpen, setIsOpen] = useState(false)
     const [openProfileModal, setOpenProfileModal] = useState(false)
     const dropdownRef = useRef(null)
     let userName = ''
     let email = ''
-    const token = userdata.user?.message?.token || userdata.user?.token
-    const user = userdata.user?.message?.user || userdata.user.name
-    const profilePic = userdata.user?.message?.user?.photoURL || userdata.user?.photoURL
+
+    // Use AuthContext to get user data
+    const { state } = useContext(AuthContext);
+    const userdata = state?.user;
+
+    // Token, User and Profile Pic extraction
+    const token = userdata?.message?.token || userdata?.token;
+    const user = userdata?.message?.user || userdata?.name;
+    const profilePic = userdata?.message?.user?.photoURL || userdata?.photoURL;
+
 
     if (typeof user === 'string') {
         email = user
@@ -39,7 +47,9 @@ export default function UserProfileDropdown({ logoutme, userdata }) {
     const toggleDropdown = () => setIsOpen(!isOpen)
     const navigate = useNavigate()
     return (
-        <div className='relative border border-black p-1 w-40 xs:max-md:w-28  xs:max-md:m-4 xs:max-md:h-8  text-black rounded-xl' ref={dropdownRef}>
+        <div
+            className='relative border border-black p-1 w-40 xs:max-md:w-28  xs:max-md:m-4 xs:max-md:h-8  text-black rounded-xl'
+            ref={dropdownRef}>
             <div className='flex flex-row justify-between items-center gap-2 '>
                 <div className='flex justify-start flex-row'>
                     <div
@@ -51,7 +61,9 @@ export default function UserProfileDropdown({ logoutme, userdata }) {
                                 alt='Profile'
                                 className='w-full h-full object-cover rounded-xl'
                             />
-                        ):(<h1 className='font-black text-xl'>{Font}</h1>)}
+                        ) : (
+                            <h1 className='font-black text-xl'>{Font}</h1>
+                        )}
                     </div>
                     <h1 className=' p-1 font-semibold'>{userName.split(' ')[0]}</h1>
                 </div>

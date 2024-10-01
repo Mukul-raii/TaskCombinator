@@ -11,6 +11,7 @@ const signup = asyncHandler(async (req, res) => {
 
     const existingUser = await User.findOne({ $or: [{ userName }, { email }] });
 
+
     if (existingUser) {
         return res.send(new apiError(400, "User already exists"));
     }
@@ -22,11 +23,13 @@ const signup = asyncHandler(async (req, res) => {
             password,
         });
 
+
         return res.send(new apiResponse(201, "User created successfully", userDetails));
     } catch (error) {
         return res.send(new apiError(400, "Error creating user"));
     }
 });
+
 
 const login = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
@@ -36,11 +39,15 @@ const login = asyncHandler(async (req, res, next) => {
     }
 
     const user = await User.findOne({ email });
+    console.log(user);
+    
     if (!user) {
         return res.send(new apiError(404, "User not found"));
     }
 
     const isPasswordCorrect = await user.IsPasswordCorrect(password);
+    console.log(isPasswordCorrect);
+    
     if (!isPasswordCorrect) {
         return res.send(new apiError(400, "Incorrect password"));
     }
@@ -88,9 +95,30 @@ const loggedInUser = asyncHandler(async (req, res) => {
     res.send(apiError(404, "User not found",error));
  }
 
-
-
 });
+
+const adduserName=asyncHandler(async(req,res)=>{
+    const {userName}=req.body;
+    console.log(userName);
+    
+    const currentUser = req.user;
+    
+    const me = await User.find({ _id: currentUser._id});
+    console.log(me);
+if(!me){
+    return res.send(new apiError(404, "User not found"));
+}
+
+try {
+    const ress =await User.findByIdAndUpdate(currentUser._id,{userName:userName},{new:true});
+    res.send(new apiResponse(200, "User name updated successfully", ress));
+} catch (error) {
+    res.send(new apiError(404, "User not found",error));
+}
+
+
+})
+
 /* 
 const GoogleLogin = async (req, res) => {
     const { idToken } = req.body;
@@ -157,19 +185,21 @@ const GoogleLogin = async (req, res) => {
         return res.send(new apiError(404, "user not found "));
     }
 
+ 
     const option = {
         httpOnly: true,
         secure: true,
-        path: "/",
+        sameSite: "None"
     };
 
+
     const token = await user.generateToken();
+console.log("gen token ",token);
 
     return res
-        .status(200)
         .setHeader('Authorization', `Bearer ${token}`)
         .cookie("token", token, option)
         .send(new apiResponse(200, "User logged in successfully", { user, token }));
 };
 
-export { signup, login, logout, loggedInUser, GoogleLogin };
+export { signup, login, logout, loggedInUser, GoogleLogin,adduserName };
