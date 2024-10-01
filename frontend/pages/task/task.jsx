@@ -202,20 +202,20 @@ const TaskManager = () => {
                 </main>
             </div>
 
-            {/* Modals */}
+       
             <Modal open={openTeamModal} onClose={handleCloseTeamModal}>
                 <Box sx={style}>
-                    <CreateTeam />
+                    <CreateTeam onClose={handleCloseTeamModal}/>
                 </Box>
             </Modal>
             <Modal open={openJoinTeamModal} onClose={handleCloseJoinTeamModal}>
                 <Box sx={style}>
-                    <JoinTeam />
+                    <JoinTeam  onclose={handleCloseJoinTeamModal} />
                 </Box>
             </Modal>
             <Modal open={openTaskModal} onClose={handleCloseTaskModal}>
                 <Box sx={style}>
-                    <CreateNewTask handleCloseTaskModal={handleCloseTaskModal} selectTeam={selectTeam} />
+                    <CreateNewTask onclose={handleCloseTaskModal} selectTeam={selectTeam} />
                 </Box>
             </Modal>
         </div>
@@ -227,7 +227,8 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 450,
+    display: 'flex',
     bgcolor: 'background.paper',
     borderRadius: '8px',
     boxShadow: 24,

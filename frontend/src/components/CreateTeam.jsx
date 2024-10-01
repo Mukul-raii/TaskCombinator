@@ -42,8 +42,8 @@ const CreateTeam = ({onClose}) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form onSubmit={handleSubmit} className='flex justify-between flex-col gap-3'>
+        <div className='flex justify-between items-center'>
           <label>Team Name:</label>
           <input
             type="text"

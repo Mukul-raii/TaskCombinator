@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-const CreateNewTask = ({selectTeam }) => {
+const CreateNewTask = ({selectTeam,onclose }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [taskName, setTaskName] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
@@ -48,9 +48,15 @@ const CreateNewTask = ({selectTeam }) => {
         },
         { withCredentials: true }
       );
-     console.log(response.data);
-     
-      toast.success('Task created successfully');
+  
+     if(response.data.statusCode == "201"){
+
+       toast.success('Task created successfully');
+       onclose()
+
+     }else{
+      toast.success('Task not created successfully');
+     }
     } catch (error) {
       toast.error('Error creating task');
     } finally {
