@@ -9,10 +9,10 @@ const Footbar = () => {
           Built with 💻 by <a href="#" className="text-purple-400">Nobita</a>
         </p>
         <div className="flex justify-center space-x-4 mt-2 xs:max-md:mt-0 xs:max-md:gap-2 xs:max-md:mr-5 flex-row gap-8">
-          <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-400">
+          <a href="https://github.com/Mukul-raii" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-400">
             <FaGithub className="h-6 w-6" />
           </a>
-          <a href="https://twitter.com/yourusername" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-400">
+          <a href="https://x.com/nobita_3127" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-400">
             <FaTwitter className="h-6 w-6" />
           </a>
         </div>
