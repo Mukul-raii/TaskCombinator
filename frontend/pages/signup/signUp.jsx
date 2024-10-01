@@ -32,7 +32,7 @@ const SignUp = () => {
                 position: 'top-right',
                 autoClose: 1000
               })
-              navigate('/signin')
+              navigate('/')
           } else{
             toast.error('Sign up Failed', {
                 position: 'top-right',
