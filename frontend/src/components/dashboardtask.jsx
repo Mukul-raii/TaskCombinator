@@ -47,8 +47,7 @@ export function DashboardCards({ task ,teamId,user}) {
                         withCredentials: true
                     }
                 )
-                console.log('Update sent: ', response.data)
-                console.log("response",response);
+
                 
                 if(response.data.statusCode == '200'){
 

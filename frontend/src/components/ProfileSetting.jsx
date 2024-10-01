@@ -8,11 +8,12 @@ export default function ProfileModal({ onClose, userdata }) {
     const [email, setEmail] = useState(' ')
     const fileInputRef = useRef(null)
 
+console.log(userdata);
 
 
-       const emailAdd = userdata.user?.message?.user?.email || userdata.user?.email
-       const user = userdata.user?.message?.user?.userName || ' '
-       const profilePic = userdata.user?.message?.user?.photoURL || userdata.user?.photoURL
+       const emailAdd = userdata.message?.user?.email || userdata.user?.email
+       const user = userdata.message?.user?.userName || ' '
+       const profilePic = userdata.message?.user?.photoURL || userdata.user?.photoURL
        useEffect(()=>{
            
            setEmail(emailAdd)
