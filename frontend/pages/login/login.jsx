@@ -147,7 +147,7 @@ const Login = ({ setSignIn }) => {
         <button
           type="button" // Prevent default form submission
           onClick={handleGoogle}
-          className="flex items-center w-[50%] xs:max-md:w-[100%] justify-center rounded-md bg-white px-3 py-1.5 text-sm font-semibold leading-6 text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+          className="flex items-center w-[50%] xs:max-md:w-[100%] justify-center rounded-md bg-white px-4 py-3 rounded-lg text-sm font-bold leading-6 text-black shadow-lg border border-black hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
           aria-label="Continue with Google"
         >
           <FaGoogle className="mr-2" />
