@@ -3,10 +3,10 @@ import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import './Herosection.css'
 import Footbar from '../footbar'
-
+import { FaUsers, FaTasks, FaSync, FaUsersCog, FaChartLine, FaClock } from 'react-icons/fa'
 const Herosection = () => {
     return (
-        <> 
+        <>
             <div className='h-screen xs:h-[950px]  hero-background flex  justify-start  flex-col '>
                 <div className='h-32'></div>
                 <div className=' flex justify-center items-center    '>
@@ -71,7 +71,6 @@ const Herosection = () => {
                                 </p>
                             </div>
                             <div className=' flex-1 flex  flex-col justify-between p-3  '>
-
                                 <svg
                                     className='w-20 max-md:w-9 xs:max-md:h-10  h-20 white fill-sky-800'
                                     fill='white'
@@ -124,50 +123,210 @@ const Herosection = () => {
                     />
                 </div>
             </div>
-            <div className=' px-4 h-[600px]   xs:max-sm:h-4/5 md:h-full md:my-11 flex justify-center items-center   xs:max-md:p-14   flex-col gap-2 '>
-                <h2 className='text-3xl font-semibold text-center mb-2'>Features</h2>
-                <div className='grid grid-cols-1 xs:max-md:grid-cols-1  lg:grid-cols-3 p-16 xs:max-md:p-2 xs:max-md:gap-6  gap-10'>
-                    <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
-                        <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Smart Task Management</h3>
-                        <p className='xs:max-md:text-xs'>
-                            Organize tasks efficiently with drag-and-drop features and easy task prioritization.
-                        </p>
-                    </div>
-                    <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
-                        <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Cross-Platform Sync</h3>
-                        <p className='xs:max-md:text-xs'>
-                            Sync your tasks across all devices to keep your to-dos in check wherever you are.
-                        </p>
-                    </div>
-                    <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
-                        <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Multiple User Support</h3>
-                        <p className='xs:max-md:text-xs'>
-                            Manage tasks for multiple users, ideal for teams or families.
-                        </p>
-                    </div>
-                    <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
-                        <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Great UX & UI</h3>
-                        <p className='xs:max-md:text-xs'>
-                            Enjoy a clean, modern design with an intuitive and user-friendly interface.
-                        </p>
-                    </div>
-                    <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
-                        <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Personalized Dashboard</h3>
-                        <p className='xs:max-md:text-xs'>
-                            Track your progress with a personalized dashboard displaying task completion stats.
-                        </p>
-                    </div>
-                    <div className='bg-white shadow-lg rounded-lg p-5 text-left '>
-                        <h3 className='text-xl xs:max-md:text-s xs:max-md:p-2 font-semibold'>Due Date Tracking</h3>
-                        <p className='xs:max-md:text-xs'>
-                            Never miss a deadline with clear tracking of due dates and reminders.
-                        </p>
-                    </div>
+            <section id='features' className='py-20 p-10'>
+                <h2 className='mb-12 text-4xl font-bold text-center text-gray-900'>Features</h2>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+                    <FeatureCard
+                        icon={<FaTasks />}
+                        title='Smart Task Management'
+                        description='Organize tasks efficiently with drag-and-drop features and easy task prioritization.'
+                    />
+                    <FeatureCard
+                        icon={<FaSync />}
+                        title='Cross-Platform Sync'
+                        description='Sync your tasks across all devices to keep your to-dos in check wherever you are.'
+                    />
+                    <FeatureCard
+                        icon={<FaUsersCog />}
+                        title='Multiple User Support'
+                        description='Manage tasks for multiple users, ideal for teams or families.'
+                    />
+                    <FeatureCard
+                        icon={<FaChartLine />}
+                        title='Great UX & UI'
+                        description='Enjoy a clean, modern design with an intuitive and user-friendly interface.'
+                    />
+                    <FeatureCard
+                        icon={<FaUsers />}
+                        title='Personalized Dashboard'
+                        description='Track your progress with a personalized dashboard displaying task completion stats.'
+                    />
+                    <FeatureCard
+                        icon={<FaClock />}
+                        title='Due Date Tracking'
+                        description='Never miss a deadline with clear tracking of due dates and reminders.'
+                    />
                 </div>
-            </div>
+            </section>
             <Footbar />
         </>
     )
 }
 
 export default Herosection
+
+const FeatureCard = ({ icon, title, description }) => (
+    <div className='p-6 bg-white rounded-lg shadow-md transition-transform duration-300 hover:scale-105 animate-on-scroll'>
+        <div className='mb-4 text-4xl text-blue-600'>{icon}</div>
+        <h3 className='mb-2 text-xl font-semibold text-gray-900'>{title}</h3>
+        <p className='text-gray-600'>{description}</p>
+    </div>
+)
+
+/* 
+
+
+import React, { useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { FaUsers, FaTasks, FaSync, FaUsersCog, FaChartLine, FaClock } from 'react-icons/fa';
+
+const Herosection = () => {
+  const observerRef = useRef(null);
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fadeIn');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.animate-on-scroll').forEach((el) => {
+      observerRef.current.observe(el);
+    });
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById('features');
+    featuresSection?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <Router>
+      <div className="bg-gradient-to-b from-blue-100 to-white">
+        <div className="container mx-auto px-4">
+          <section className="py-20 text-center">
+            <div className="animate-on-scroll">
+              <p className="inline-block px-4 py-2 mb-4 text-sm font-semibold text-blue-600 bg-blue-100 rounded-full">
+                Streamline. Prioritize. Conquer.
+              </p>
+              <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl lg:text-6xl">
+                TaskCombinator – Effortlessly Combine Your Tasks,
+                <br />
+                and Unlock Your True Potential.
+              </h1>
+              <p className="mb-8 text-xl text-gray-600">
+                Streamline your workflow by forming teams and delegating tasks efficiently.
+                <br />
+                Empower your members to collaborate and achieve goals together.
+              </p>
+              <button
+                onClick={scrollToFeatures}
+                className="px-6 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-300"
+              >
+                Explore Features
+              </button>
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              <div className="animate-on-scroll">
+                <h2 className="mb-4 text-3xl font-bold text-gray-900">Team Building</h2>
+                <p className="mb-4 text-xl text-gray-600">
+                  Create dynamic teams that enhance productivity and foster collaboration.
+                </p>
+                <FaUsers className="text-6xl text-blue-600" />
+              </div>
+              <div className="animate-on-scroll">
+                <h2 className="mb-4 text-3xl font-bold text-gray-900">Task Management</h2>
+                <p className="mb-4 text-xl text-gray-600">
+                  Assign tasks seamlessly and track progress in real-time.
+                </p>
+                <FaTasks className="text-6xl text-blue-600" />
+              </div>
+            </div>
+          </section>
+
+          <section className="py-20">
+            <div className="animate-on-scroll">
+              <img
+                src="https://res.cloudinary.com/dmvzjbgwp/image/upload/v1727458714/s8zxfnhpvro1n4rcmtv5.png"
+                alt="TaskCombinator Dashboard"
+                className="w-full rounded-lg shadow-2xl transition-transform duration-300 hover:scale-105"
+              />
+            </div>
+          </section>
+
+          <section id="features" className="py-20">
+            <h2 className="mb-12 text-4xl font-bold text-center text-gray-900">Features</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <FeatureCard
+                icon={<FaTasks />}
+                title="Smart Task Management"
+                description="Organize tasks efficiently with drag-and-drop features and easy task prioritization."
+              />
+              <FeatureCard
+                icon={<FaSync />}
+                title="Cross-Platform Sync"
+                description="Sync your tasks across all devices to keep your to-dos in check wherever you are."
+              />
+              <FeatureCard
+                icon={<FaUsersCog />}
+                title="Multiple User Support"
+                description="Manage tasks for multiple users, ideal for teams or families."
+              />
+              <FeatureCard
+                icon={<FaChartLine />}
+                title="Great UX & UI"
+                description="Enjoy a clean, modern design with an intuitive and user-friendly interface."
+              />
+              <FeatureCard
+                icon={<FaUsers />}
+                title="Personalized Dashboard"
+                description="Track your progress with a personalized dashboard displaying task completion stats."
+              />
+              <FeatureCard
+                icon={<FaClock />}
+                title="Due Date Tracking"
+                description="Never miss a deadline with clear tracking of due dates and reminders."
+              />
+            </div>
+          </section>
+
+          <section className="py-20 text-center">
+            <div className="animate-on-scroll">
+              <h2 className="mb-4 text-3xl font-bold text-gray-900">Ready to boost your productivity?</h2>
+              <p className="mb-8 text-xl text-gray-600">
+                Join TaskCombinator today and transform the way you manage tasks and collaborate with your team.
+              </p>
+              <Link
+                to="/signin"
+                className="px-6 py-3 text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-300"
+              >
+                Get Started
+              </Link>
+            </div>
+          </section>
+        </div>
+      </div>
+    </Router>
+  );
+};
+
+const FeatureCard = ({ icon, title, description }) => (
+  <div className="p-6 bg-white rounded-lg shadow-md transition-transform duration-300 hover:scale-105 animate-on-scroll">
+    <div className="mb-4 text-4xl text-blue-600">{icon}</div>
+    <h3 className="mb-2 text-xl font-semibold text-gray-900">{title}</h3>
+    <p className="text-gray-600">{description}</p>
+  </div>
+);
+
+export default Herosection; */

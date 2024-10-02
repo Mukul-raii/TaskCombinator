@@ -172,7 +172,7 @@ const TaskManager = () => {
                         </div>
                     </div>
                     <>
-                        <div className='bg-white rounded-lg flex justify-center items-center shadow-md p-8 '>
+                        <div className=' flex justify-center items-center '>
                             {isLoading ? (
                                 <div className='flex justify-center items-center h-64'>
                                     <div className='animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500'></div>
