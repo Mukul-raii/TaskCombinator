@@ -131,23 +131,22 @@ const TaskManager = () => {
                         </Button>
                     </div>
                     <div className='absolute bottom-16 flex text-sm justify-center space-x-4 left-0 right-0 py-4'>
-    {/* Twitter Button */}
-    <a href="https://x.com/nobita_3127" target="_blank" rel="noopener noreferrer">
-        <button className='w-28 h-fit flex items-center border border-white px-2 py-1 rounded-xl hover:bg-white hover:text-black transition-all'>
-            <FaTwitter className='mr-2' />
-            <p>Twitter</p>
-        </button>
-    </a>
+                        {/* Twitter Button */}
+                        <a href='https://x.com/nobita_3127' target='_blank' rel='noopener noreferrer'>
+                            <button className='w-28 h-fit flex items-center border border-white px-2 py-1 rounded-xl hover:bg-white hover:text-black transition-all'>
+                                <FaTwitter className='mr-2' />
+                                <p>Twitter</p>
+                            </button>
+                        </a>
 
-    {/* GitHub Button */}
-    <a href="https://github.com/Mukul-raii" target="_blank" rel="noopener noreferrer">
-        <button className='w-28 h-fit flex items-center border border-white px-2 py-1 rounded-xl hover:bg-white hover:text-black transition-all'>
-            <FaGithub className='mr-2' />
-            <p>Source</p>
-        </button>
-    </a>
-</div>
-
+                        {/* GitHub Button */}
+                        <a href='https://github.com/Mukul-raii' target='_blank' rel='noopener noreferrer'>
+                            <button className='w-28 h-fit flex items-center border border-white px-2 py-1 rounded-xl hover:bg-white hover:text-black transition-all'>
+                                <FaGithub className='mr-2' />
+                                <p>Source</p>
+                            </button>
+                        </a>
+                    </div>
                 </nav>
 
                 {/* Main Content */}
@@ -202,15 +201,14 @@ const TaskManager = () => {
                 </main>
             </div>
 
-       
             <Modal open={openTeamModal} onClose={handleCloseTeamModal}>
                 <Box sx={style}>
-                    <CreateTeam onClose={handleCloseTeamModal}/>
+                    <CreateTeam onClose={handleCloseTeamModal} />
                 </Box>
             </Modal>
             <Modal open={openJoinTeamModal} onClose={handleCloseJoinTeamModal}>
                 <Box sx={style}>
-                    <JoinTeam  onclose={handleCloseJoinTeamModal} />
+                    <JoinTeam onclose={handleCloseJoinTeamModal} />
                 </Box>
             </Modal>
             <Modal open={openTaskModal} onClose={handleCloseTaskModal}>

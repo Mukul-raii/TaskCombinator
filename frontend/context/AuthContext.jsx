@@ -49,14 +49,14 @@ const AuthProvider = ({ children }) => {
     const response = await login(user);
     const token =response.user.message.token
     const VerifiedUser=response.user
-    console.log("response",response);
+    //console.log("response",response);
     
     if (response.success) {
       localStorage.setItem('user', JSON.stringify(VerifiedUser));
       dispatch({ type: 'LOGIN' ,payload: VerifiedUser});
       return response;
     } else {
-      console.log(response.user);
+      //console.log(response.user);
     }
   };
   
@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(response.user.message));
 return response
     } else {
-      console.log(response.Error);
+      //console.log(response.Error);
     }
   };
 
@@ -103,7 +103,7 @@ const payload={
    
       return response
     } else {
-      console.log(response.user);
+      //console.log(response.user);
     }
 
   }

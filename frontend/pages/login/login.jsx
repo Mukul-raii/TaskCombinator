@@ -20,7 +20,7 @@ const Login = ({ setSignIn }) => {
       
       try {
           const response = await HandleLogin({ email, password });
-          console.log('Login response', response);
+          //console.log('Login response', response);
           
           if (response.success) {
               toast.success('Login Successful', {
@@ -35,7 +35,7 @@ const Login = ({ setSignIn }) => {
               });
           }
       } catch (error) {
-          console.log(error);
+          //console.log(error);
           toast.error('An error occurred during login');
       }
   }, [email, password, HandleLogin, navigate]);
@@ -54,7 +54,7 @@ const Login = ({ setSignIn }) => {
         };
 
         const response = await HandleGoogleLogin(userData, idToken);
-        console.log('Google sign-in response:', response);
+        //console.log('Google sign-in response:', response);
 
         if (response) {
           toast.success('Login Successful', {
@@ -70,7 +70,7 @@ const Login = ({ setSignIn }) => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        //console.log(error);
         toast.error('An error occurred during Google login');
       });
   };

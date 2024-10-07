@@ -55,9 +55,11 @@ const createTeam = asyncHandler(async (req, res, next) => {
 });
 
 const deleteTeam = asyncHandler(async (req, res) => {
-    const { teamId } = req.body;
+    const { teamId } = req.query;
+console.log(teamId);
 
     const team = await Team.findOne({ teamId });
+console.log({team});
 
     if (team.teamAdmins != req.user._id) {
         return res.send(new apiError(400, "You are not authorized to delete this team"));
@@ -72,7 +74,7 @@ const joinTeam = asyncHandler(async (req, res) => {
    try {
      const { teamName } = req.body;
      const team = await Team.findOne({ teamName:teamName });
-     console.log(team);
+     //console.log(team);
      team.teamMembers.push(req.user._id);
      
      await team.save();
@@ -187,7 +189,7 @@ const getTeam = asyncHandler(async (req, res) => {
         if (!result || result.length === 0) {
             return res.status(404).json(new apiResponse(404, "No team found with the given teamId", null));
         }
-console.log(result[0]);
+//console.log(result[0]);
 
         return res.status(200).json(new apiResponse(200, "Team data retrieved successfully", result[0]));
     } catch (error) {

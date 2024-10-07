@@ -23,7 +23,7 @@ const SignUp = () => {
        
         
           const response = await HandleSignUp({ userName, email, password })
-          console.log(response);
+          //console.log(response);
           
 
           if (response.statusCode="200") {
@@ -62,7 +62,7 @@ const SignUp = () => {
         
     const response = await HandleGoogleLogin(userData,idToken)
 
-console.log("google res sign ",response);
+//console.log("google res sign ",response);
 
     if(response){
         toast.success('Login Successful',{

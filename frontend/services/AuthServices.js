@@ -18,7 +18,7 @@ const login = async (user) => {
   try {
 
     const res = await axios.post(`${apiUrl}/user/login`, user,{withCredentials:true});
-    console.log("login response",res);
+    //console.log("login response",res);
 
     if (res.data.statusCode==200) {
       return { success: true, user: res.data };
@@ -48,7 +48,7 @@ const signin = async (user) => {
 
 const logout =async(token)=>{
     const res=await axios.post(`${apiUrl}/user/logout`,{token});
-    console.log(res);
+    //console.log(res);
     
     if(res.status==200){
       localStorage.removeItem('user');

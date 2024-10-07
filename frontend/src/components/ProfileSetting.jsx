@@ -8,7 +8,7 @@ export default function ProfileModal({ onClose, userdata }) {
     const [email, setEmail] = useState(' ')
     const fileInputRef = useRef(null)
 
-console.log(userdata);
+//console.log(userdata);
 
 
        const emailAdd = userdata.message?.user?.email || userdata.user?.email
@@ -30,17 +30,24 @@ console.log(userdata);
         }
     }
 
-    const handleImageUpload = (e) => {
+    const handleImageUpload =async(e) => {
+        e.preventDefault()
+        console.log("ruunning");
+        
         const file = e.target.files[0]
-        if (file) {
-            console.log('File selected:', file.name)
-        }
+        console.log({file});
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/user/avatarUpload`,{file},{
+            withCredentials:true,
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        })
+        console.log("res",res);
+        
+        
     }
 
     const handleSave = async () => {
-        // Here you would typically save the changes
-        console.log('Saving changes:', { username })
-       
         const response = await axios.put('http://localhost:4000/api/v1/user/updateUser',{userName:username},{
             withCredentials: true
         })
@@ -76,13 +83,14 @@ console.log(userdata);
                         />
                     </svg>
                 </button>
+     
                 <input
                     type='file'
                     ref={fileInputRef}
                     onChange={handleImageUpload}
                     className='hidden'
-                    accept='image/*'
-                />
+                    />
+
             </div>
             <div className='space-y-4'>
                 <div>

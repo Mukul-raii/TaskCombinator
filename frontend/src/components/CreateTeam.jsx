@@ -18,7 +18,7 @@ const CreateTeam = ({onClose}) => {
         { teamName, teamMembers },
         { withCredentials: true }
       );
-      console.log(response.data);
+      //console.log(response.data);
       if(response.data.statusCode == "201"){
 
         toast.success('Team created successfully');

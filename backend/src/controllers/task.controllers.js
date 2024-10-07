@@ -56,7 +56,7 @@ const createTask = asyncHandler(async (req, res, next) => {
       teamId,
       assignTo,
     });
-    console.log(taskDetails);
+    //console.log(taskDetails);
     return res.send(
       new apiResponse(201, "Task created successfully", taskDetails)
     );
@@ -66,7 +66,7 @@ const createTask = asyncHandler(async (req, res, next) => {
 });
 
 const deleteTask = asyncHandler(async (req, res) => {
-  const { taskId } = req.body;
+  const { taskId } = req.query;
   const currentUser = req.user;
 
   const task = await Task.findById(taskId);
@@ -94,10 +94,10 @@ const updateTask = asyncHandler(async (req, res) => {
      
   const team = await Team.findOne({ teamId: teamId });
 
-  console.log(task,team);
+  //console.log(task,team);
   
   const isAssigne = currentUser._id == task.assignTo.toString();
-console.log("assing",isAssigne);
+//console.log("assing",isAssigne);
 
 
   if (!isAssigne) {
@@ -123,7 +123,7 @@ console.log("assing",isAssigne);
 
 const getAllTasks = asyncHandler(async (req, res) => {
   const { teamId } = req.query;
-  console.log(req.headers);
+  //console.log(req.headers);
   
   const currentUser = req.user;
 
@@ -144,8 +144,8 @@ const getUserTasks = asyncHandler(async (req, res) => {
     const currentUser = req.user;
     const tasks = await Task.find({ assignTo:currentUser });
 
-    console.log(currentUser);
-    console.log(tasks);
+    //console.log(currentUser);
+    //console.log(tasks);
     
     const pipeline = await Task.aggregate([
       // Match the specific team by teamId

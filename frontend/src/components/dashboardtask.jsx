@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import 'animate.css';
 import { toast } from 'react-toastify';
+import { RiDeleteBin2Fill } from 'react-icons/ri'
+
 export function DashboardCards({ task ,teamId,user}) {
 
     const {
@@ -72,6 +74,30 @@ export function DashboardCards({ task ,teamId,user}) {
         setIsUpdatedByClick(true)
         setStatus(status)
     }
+
+    const handleDelete =async ()=>{
+      try {
+        const response =await axios.delete(`${import.meta.env.VITE_API_URL}/task/delete`,
+        {
+         params:{taskId:_id},
+          withCredentials:true
+    
+        })
+        if(response.data.statusCode=="200"){
+
+          toast.success("Success fully deleted task ")
+        }else{
+       toast.error("Only admin can  delete task")
+
+        }
+    //    console.log(response.data);
+        
+      
+      } catch (error) {
+       toast.error("Error deleting error")
+      }
+   
+       }
 
 
     if (isLoading) {
@@ -151,14 +177,17 @@ export function DashboardCards({ task ,teamId,user}) {
       
       <div className="px-6 py-4 bg-gradient-to-r from-blue-50 to-indigo-50 flex justify-between items-center">
         <span className="text-xs font-medium text-gray-600">Assigned to: {userName}</span>
-        <button
-          type="button"
-          onClick={handleUpdateClick}
-         
-          className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
-        >
-          Update
-        </button>
+        <div className='flex flex-row gap-2 items-center justify-between  '>
+
+          <RiDeleteBin2Fill className=' text-red-700 text-2xl hover:scale-150 transition-all duration-300 ease-in-out' onClick={()=> handleDelete()}/>
+          <button
+            type="button"
+            onClick={handleUpdateClick}
+            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+            >
+            Update
+          </button>
+            </div>
       </div>
     </div>
   )

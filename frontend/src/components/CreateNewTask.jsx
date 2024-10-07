@@ -21,7 +21,7 @@ const CreateNewTask = ({selectTeam,onclose }) => {
           params: { teamId: selectTeam }
         });
        
-        console.log("teamdeta",response.data.message.teamMembers);
+        //console.log("teamdeta",response.data.message.teamMembers);
         
         setTeamMember(response.data.message.teamMembers);
       setIsLoading(false)
