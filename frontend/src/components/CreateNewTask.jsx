@@ -36,7 +36,7 @@ const CreateNewTask = ({selectTeam,onclose }) => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/v1/task/create`,
+        `${import.meta.env.VITE_API_URL}/task/create`,
         {
           taskName,
           taskDescription,
@@ -78,7 +78,7 @@ const CreateNewTask = ({selectTeam,onclose }) => {
   }
 
   return (
-    <div className="max-w-md mx-auto  mt-10 bg-white p-8 border border-gray-300 rounded-lg shadow-lg">
+    <div className='flex justify-center item-center flex-col w-full'>
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Create New Task</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -172,24 +172,3 @@ const CreateNewTask = ({selectTeam,onclose }) => {
 };
 
 export default CreateNewTask;
-
-// To implement user selection from an array, you can replace the "Assign To" input field with a select dropdown:
-/*
-const [users, setUsers] = useState([]) // Assume this is populated with user data
-
-<div>
-  <label htmlFor="assignTo" className="block text-sm font-medium text-gray-700">Assign To</label>
-  <select
-    id="assignTo"
-    onChange={(e) => setAssignTo(e.target.value)}
-    className="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm shadow-sm
-               focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-    required
-  >
-    <option value="">Select user</option>
-    {users.map((user) => (
-      <option key={user.id} value={user.id}>{user.name}</option>
-    ))}
-  </select>
-</div>
-*/

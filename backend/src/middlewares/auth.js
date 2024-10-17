@@ -10,9 +10,6 @@ const authHandler = async (req, res, next) => {
       req.cookies?.token ||
       req.header('Authorization')?.replace('Bearer ', '') ||
       req.body?.token;
-
-    console.log("token --",token);
-
     if (!token) {
         return next(Error);
     }

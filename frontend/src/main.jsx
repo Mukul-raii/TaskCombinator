@@ -9,10 +9,8 @@ const root =createRoot(document.getElementById('root'))
 root.render(
   <StrictMode>
     <Router>
-
     <AuthProvider>
     <App />
-    
     </AuthProvider>
     </Router>
   </StrictMode>

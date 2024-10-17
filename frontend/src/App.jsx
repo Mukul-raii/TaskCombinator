@@ -20,10 +20,9 @@ function App() {
 
 
   return (
-    <AuthProvider>
+   
       <div className="App">
-      <ToastContainer />
-
+  
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
@@ -31,7 +30,6 @@ function App() {
           <Route path="/taskview" element={<PrivateRouter element={<TaskManager />} isAuthenticated={state} />} />
         </Routes>
       </div>
-    </AuthProvider>
   );
 }
 

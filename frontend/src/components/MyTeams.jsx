@@ -1,19 +1,16 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import {RiDeleteBin6Line} from 'react-icons/ri'
-const MyTeams = ({ getTeams }) => {
+const MyTeams = ({ getTeams,isdataUpdated }) => {
   const [teams, setTeams] = useState([]);
 
   // Fetch user teams from the API when component mounts
   useEffect(() => {
-    const fetchUserTeams = async () => {
-      
+    const fetchUserTeams = async () => {  
       try {
         const response = await axios.get(`${import.meta.env.VITE_API_URL}/user/getme`, {
           withCredentials: true
         });
-        //console.log("getme",response.data);
-        
         
         const teams = response.data.message.myteams;
   
@@ -24,7 +21,7 @@ const MyTeams = ({ getTeams }) => {
     };
 
     fetchUserTeams();
-  }, [setTeams]); // Empty dependency array ensures this runs only once on mount
+  }, [setTeams,isdataUpdated]); // Empty dependency array ensures this runs only once on mount
   
   const deleteTeam =async (teamId)=>{
     const response = await axios.delete(`${import.meta.env.VITE_API_URL}/team/delete`,{

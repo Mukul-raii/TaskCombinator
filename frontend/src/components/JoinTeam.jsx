@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-const JoinTeam = ({ onclose }) => {
+const JoinTeam = ({ onclose ,isdataUpdated }) => {
     const [isLoading, setIsLoading] = useState(false)
     const [teamName, setTeamName] = useState('')
     const [teamMembers, setTeamMembers] = useState('')
@@ -14,7 +14,7 @@ const JoinTeam = ({ onclose }) => {
             { teamName },
             { withCredentials: true }
         )
-
+        isdataUpdated(true)
         if (response.data.statusCode == '200') {
             toast.success('Team joined successfully')
             onclose()

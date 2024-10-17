@@ -211,12 +211,7 @@ const Github_Issue = async (req, res) => {
     });
 
     try {
-        /*     const result =await octokit.request("GET /repos/{owner}/{repo}/issues/{issue_number}",{
-        owner: owner,           
-        repo: repo,            
-        issue_number: issue_number 
-    
-    }) */
+     
 
         const result = await axios.get(
             `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}`,

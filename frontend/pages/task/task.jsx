@@ -11,6 +11,8 @@ import CreateNewTask from '../../src/components/CreateNewTask'
 import Dashboard from '../../src/components/dashboard'
 import { Button, Modal, Box } from '@mui/material'
 import { FaBars, FaPlus, FaGithub, FaTwitter } from 'react-icons/fa'
+import { toast } from 'react-toastify'
+
 const TaskManager = () => {
     const { state } = useContext(AuthContext)
     const [isLoading, setIsLoading] = useState(false)
@@ -26,6 +28,8 @@ const TaskManager = () => {
     const navigate = useNavigate()
     const [userTask, setUserTask] = useState([])
 
+    const [isUpdatedByClick, setIsUpdatedByClick] = useState(false)
+
     const userName = state.user?.message?.user?.userName || state.user?.name
 
     const handleOpenTeamModal = () => setOpenTeamModal(true)
@@ -36,7 +40,7 @@ const TaskManager = () => {
 
     const handleOpenTaskModal = () => setOpenTaskModal(true)
     const handleCloseTaskModal = () => setOpenTaskModal(false)
-
+    const [isDataLoaded, setIsDataLoaded] = useState(false)
     const toggleSidebar = () => {
         setSidebarOpen(!sidebarOpen) // Toggle the sidebar state
     }
@@ -49,46 +53,93 @@ const TaskManager = () => {
             setIsLoading(false)
         }
     }
+    const isdataUpdated=()=>{
+        console.log("data updating1");
+        
+        setIsDataLoaded(true)
+    }
 
     useEffect(() => {
         const getTasks = async () => {
-            const token = localStorage.getItem('token') // Retrieve the token from storage (or where you're storing it)
-
+            const token = localStorage.getItem('token');
             try {
-                // First API call
                 const response = await axios.get(`${import.meta.env.VITE_API_URL}/task/all`, {
                     params: { teamId: selectTeam },
                     headers: {
-                        Authorization: `Bearer ${token}` // Pass the token here
+                        Authorization: `Bearer ${token}`,
                     },
-                    withCredentials: true
-                })
-
-                setIsAdmin(response.data.message.isAdmin)
-                setTeamName(response.data.message.team.teamName)
-
-                // Second API call
+                    withCredentials: true,
+                });
+    
+                setIsAdmin(response.data.message.isAdmin);
+                setTeamName(response.data.message.team.teamName);
+            } catch (err) {
+                console.error('Error fetching tasks', err);
+            }
+        };
+    
+        const getTeamData = async () => {
+            const token = localStorage.getItem('token');
+            try {
                 const response2 = await axios.get(`${import.meta.env.VITE_API_URL}/team/getall`, {
                     params: { teamId: selectTeam },
                     headers: {
-                        Authorization: `Bearer ${token}` // Pass the token here
+                        Authorization: `Bearer ${token}`,
                     },
-                    withCredentials: true
-                })
-
-                setTeamdata(response2.data.message)
-                setTaskData(response2.data.message.tasks)
+                    withCredentials: true,
+                });
+    
+    
+                setTeamdata(response2.data.message);
+                setTaskData(response2.data.message.tasks);
             } catch (err) {
-                console.error('Error getting tasks', err)
-            } finally {
-                setIsLoading(false)
+                console.error('Error fetching team data', err);
             }
-        }
-
+        };
+    
         if (selectTeam) {
-            getTasks()
+            getTasks();
+            getTeamData();
         }
-    }, [selectTeam])
+        setIsLoading(false);
+       
+    }, [selectTeam,  openTeamModal, setTaskData, taskData]);
+    
+
+    const setUpdate = ()=>{setIsUpdatedByClick(true)}
+
+   const cardUpdate = async(taskID, newStatus ,teamId,assignTo,) => {
+  
+        try {
+
+            const response = await axios.put(
+                `${import.meta.env.VITE_API_URL}/task/update/`,
+                { teamId, taskStatus: newStatus, assignTo, taskID },
+                {
+                    withCredentials: true
+                }
+            )
+            
+            const index= taskData.findIndex((task)=>task._id==taskID)
+            const tempdata= taskData
+            console.log({index});
+            
+            tempdata[index]=response.data.message
+            setTaskData(tempdata)
+            setIsLoading(true)
+            console.log({tempdata});
+            if (response.statusCode === 200) {
+                toast.success('Task Updated Successfully')
+            } else {
+                toast.error('Task Not Updated')
+            }
+        } catch (error) {
+            console.error('Error updating status:', error)
+        }
+    
+   }
+
+
 
     return (
         <div className='min-h-screen bg-gray-100'>
@@ -107,7 +158,7 @@ const TaskManager = () => {
                         </h2>
                         <div className='relative pl-4'>
                             <div className='absolute left-0 top-0 h-full w-0.5 bg-white opacity-50'></div>
-                            <MyTeams getTeams={getTeams} />
+                            <MyTeams getTeams={getTeams} isdataUpdated={isdataUpdated} />
                         </div>
                         <button
                             className='w-full p-3 bg-white text-blue-600 rounded-lg shadow-md transform transition-all duration-300 hover:scale-105 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50'
@@ -185,8 +236,9 @@ const TaskManager = () => {
                                         .map((task, index) => (
                                             <div
                                                 key={index}
-                                                className='transform transition-all duration-300 hover:scale-105'>
-                                                <CardWithForm task={task} teamId={selectTeam} />
+                                                className='transform transition-all duration-300  hover:scale-105 hover:z-10'>
+                                                  
+                                                <CardWithForm   task={task} teamId={selectTeam} cardUpdate={cardUpdate}  setUpdate={setUpdate} />
                                             </div>
                                         ))}
                                 </div>
@@ -203,12 +255,12 @@ const TaskManager = () => {
 
             <Modal open={openTeamModal} onClose={handleCloseTeamModal}>
                 <Box sx={style}>
-                    <CreateTeam onClose={handleCloseTeamModal} />
+                    <CreateTeam onClose={handleCloseTeamModal} isdataUpdated={isdataUpdated}/>
                 </Box>
             </Modal>
             <Modal open={openJoinTeamModal} onClose={handleCloseJoinTeamModal}>
                 <Box sx={style}>
-                    <JoinTeam onclose={handleCloseJoinTeamModal} />
+                    <JoinTeam onclose={handleCloseJoinTeamModal} isdataUpdated={isdataUpdated} />
                 </Box>
             </Modal>
             <Modal open={openTaskModal} onClose={handleCloseTaskModal}>
