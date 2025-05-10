@@ -119,7 +119,7 @@ const Herosection = () => {
                 <div className='h-[810px]  xs:max-md:h-56  lg:max-3xl:30 bg-opacity-50 w-[90%] mt-[-100px] xs:max-md:mt-[-40px] rounded-3xl p-8 xs:max-md:p-4 backdrop-blur-lg HeroImage2 transform transition-all duration-300 hover:scale-105'>
                     <img
                         className='rounded-3xl md:max-3xl:h-[750px] xs:max-sm:h-[184px] transform transition-all duration-300  hover:scale-102'
-                        src='https://res.cloudinary.com/dmvzjbgwp/image/upload/v1727458714/s8zxfnhpvro1n4rcmtv5.png'
+                        src='https://res.cloudinary.com/dmvzjbgwp/image/upload/v1746852599/Screenshot_2024-10-01_at_18-11-27_TaskCombinator_nrtk2r.png'
                     />
                 </div>
             </div>
