@@ -33,8 +33,7 @@ A comprehensive team collaboration and task management platform that enables tea
 - **User Profiles**: Customizable user profiles with avatar support
 - **Responsive Design**: Optimized for desktop and mobile devices
 - **Email Notifications**: Automated email notifications for task assignments and updates
-
-## 🛠️ Tech Stack
+- **Keep-Alive System**: Automatic backend keep-alive to prevent server sleep on free hosting tiers## 🛠️ Tech Stack
 
 ### Frontend
 
@@ -132,6 +131,9 @@ CLERK_SECRET_KEY=your_clerk_secret_key
 
 # CORS
 FRONTEND_URL=http://localhost:5173
+
+# Keep-Alive Configuration (Production)
+BACKEND_URL=https://taskcombinatorserver.onrender.com
 ```
 
 #### Frontend (.env)
@@ -281,6 +283,28 @@ Both frontend and backend are configured for Vercel deployment:
 ### Production URL
 
 - Frontend: `https://taskcombinator.vercel.app`
+- Backend: Configure your backend URL and update in frontend environment variables
+
+### Keep-Alive Configuration 🔄
+
+The backend includes an automatic keep-alive system to prevent server sleep on free hosting tiers (Render, Railway, etc.).
+
+**Features:**
+
+- Internal cron job pings the server every 14 minutes in production
+- Health check endpoint at `/api/v1/health`
+- GitHub Actions workflow for external pinging
+- Detailed setup guide in `backend/cron-setup.md`
+
+**Quick Setup:**
+
+1. Set `NODE_ENV=production` in your hosting environment
+2. Set `BACKEND_URL` to your production backend URL
+3. (Optional) Enable GitHub Actions workflow for additional reliability
+4. (Optional) Use external services like [UptimeRobot](https://uptimerobot.com/) or [Cron-Job.org](https://cron-job.org/)
+
+See `backend/cron-setup.md` for detailed configuration options.
+
 - Backend: Configure your backend URL and update in frontend environment variables
 
 ## 🤝 Contributing
