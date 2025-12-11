@@ -7,23 +7,39 @@ import axios from "axios";
 
 const BACKEND_URL =
   process.env.BACKEND_URL || "https://taskcombinatorserver.onrender.com";
-const PING_INTERVAL = 7 * 60 * 1000; // 14 minutes (free tier servers usually sleep after 15 mins of inactivity)
+const PING_INTERVAL = 14 * 60 * 1000; // 14 minutes (free tier servers usually sleep after 15 mins of inactivity)
+const INITIAL_DELAY = 2 * 60 * 1000; // 2 minutes delay before first ping
 
 /**
  * Ping the server to keep it alive
  */
 const pingServer = async () => {
   try {
-    const response = await axios.get(`${BACKEND_URL}/api/v1/health`);
+    const response = await axios.get(`${BACKEND_URL}/api/v1/health`, {
+      timeout: 10000, // 10 second timeout
+    });
     console.log(
       `✅ Keep-alive ping successful at ${new Date().toISOString()}:`,
       response.data
     );
   } catch (error) {
-    console.error(
-      `❌ Keep-alive ping failed at ${new Date().toISOString()}:`,
-      error.message
-    );
+    // Only log if it's not the initial ping attempt
+    if (error.response) {
+      console.error(
+        `❌ Keep-alive ping failed at ${new Date().toISOString()}: Status ${
+          error.response.status
+        }`
+      );
+    } else if (error.code === "ECONNREFUSED") {
+      console.error(
+        `⚠️  Keep-alive ping: Connection refused (server may still be starting)`
+      );
+    } else {
+      console.error(
+        `❌ Keep-alive ping failed at ${new Date().toISOString()}:`,
+        error.message
+      );
+    }
   }
 };
 
@@ -34,16 +50,22 @@ export const startKeepAlive = () => {
   // Only run keep-alive in production
   if (process.env.NODE_ENV === "production") {
     console.log(
-      `🚀 Keep-alive cron job started. Pinging every ${
+      `🚀 Keep-alive cron job started. Will ping every ${
         PING_INTERVAL / 60000
       } minutes.`
     );
+    console.log(
+      `⏰ First ping scheduled in ${INITIAL_DELAY / 60000} minutes...`
+    );
 
-    // Initial ping
-    pingServer();
+    // Wait before first ping to ensure server is fully deployed and accessible
+    setTimeout(() => {
+      console.log("🔔 Initiating first keep-alive ping...");
+      pingServer();
 
-    // Set up interval
-    setInterval(pingServer, PING_INTERVAL);
+      // Set up interval for subsequent pings
+      setInterval(pingServer, PING_INTERVAL);
+    }, INITIAL_DELAY);
   } else {
     console.log("⏭️  Keep-alive cron job skipped (not in production mode)");
   }
